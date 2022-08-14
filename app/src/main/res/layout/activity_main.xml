@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="main"
+            type="com.example.movies.activity.main.MainActivity" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                android:orientation="vertical">
+
+                <!--APPBAR LAYOUT-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/top_appbar_layout_corner"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:id="@+id/layoutToolbarFirst"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_marginStart="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_19sdp"
+                            android:src="@drawable/popcorn" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="bottom"
+                            android:orientation="vertical">
+
+                            <Spinner
+                                android:id="@+id/spinnerMenus"
+                                android:layout_width="@dimen/_200sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_15sdp"
+                                android:background="@color/background"
+                                android:backgroundTint="@color/background"
+                                android:foregroundTint="@color/background"
+                                android:gravity="center"
+                                android:popupBackground="@drawable/background_spinner_corner"
+                                android:textAlignment="center"
+                                android:theme="@style/mySpinnerItemStyle"
+                                android:visibility="@{main.isSearchMovie ? View.GONE:View.VISIBLE}" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layoutToolbarSecond"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.SearchView
+                            android:id="@+id/searchView"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_23sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:background="@drawable/background_corner_search_view"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:focusedByDefault="true"
+                            android:gravity="end"
+                            android:visibility="@{main.isSearchMovie ? View.VISIBLE:View.GONE}"
+                            app:iconifiedByDefault="false"
+                            app:queryHint="@string/search_movie"
+                            app:searchIcon="@null"></androidx.appcompat.widget.SearchView>
+
+
+                        <ImageView
+                            android:id="@+id/iconSearchMovie"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_30sdp"
+                            android:onClick="@{()->main.onButtonSearchClickedMain()}"
+                            android:src="@drawable/ic_search"
+                            android:visibility="@{main.isSearchMovie ? View.GONE:View.VISIBLE}" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <!--RECYCLER VIEW LAYOUT-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/mainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background"
+                    tools:context=".activity.main.MainActivity">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:id="@+id/scrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true"
+                        android:overScrollMode="never">
+
+                        <!--HOME LAYOUT-->
+                        <LinearLayout
+                            android:id="@+id/layoutHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/background"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recyclerViewSearchMovie"
+                                    searchMovieAdapter="@{main.searchMovieAdapterObservableField}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="750dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginEnd="@dimen/_5sdp"
+                                    android:background="@color/background"
+                                    android:clipToPadding="false"
+                                    android:paddingBottom="@dimen/_80sdp"
+                                    android:visibility="@{main.hasSearched ? View.VISIBLE:View.GONE}" />
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="@{main.hasSearched ? View.GONE:View.VISIBLE}">
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recyclerViewListMovies"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="-20dp"
+                                    android:clipToPadding="false"
+                                    android:nestedScrollingEnabled="false"
+                                    android:orientation="horizontal"
+                                    android:paddingTop="@dimen/_15sdp"
+                                    android:paddingBottom="@dimen/_60sdp"
+                                    bind:setAdapter="@{main.parentAdapterMovieObservableField}" />
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--TV SHOW LAYOUT-->
+                <LinearLayout
+                    android:id="@+id/layout_tv_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/layoutIncludeTVShow"
+                        layout="@layout/tv_show_layout"
+                        bind:main="@{main}" />
+
+                </LinearLayout>
+                <!--FAVORITE LAYOUT-->
+                <LinearLayout
+                    android:id="@+id/layout_favorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/layoutFavoriteBinding"
+                        layout="@layout/layout_favorite"
+                        bind:positionType="@{main.observableFieldPositionFavoritesType}" />
+
+                </LinearLayout>
+                <!--SETTING LAYOUT-->
+                <LinearLayout
+                    android:id="@+id/layout_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/layoutIncludeSettings"
+                        layout="@layout/layout_setting" />
+                </LinearLayout>
+
+                <!--OTHERS LAYOUT-->
+                <LinearLayout
+                    android:id="@+id/layout_others"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/layoutIncludeOthers"
+                        layout="@layout/layout_others"
+                        bind:positionType="@{main.observableFieldPositionOtherType}" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonScrollToTopMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:contentDescription="TODO"
+            android:onClick="@{()->main.onButtonScrollToTopClicked()}"
+            android:src="@drawable/ic_barrow_up"
+            android:visibility="gone"
+            app:backgroundTint="#FF9800"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:tint="@color/background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+

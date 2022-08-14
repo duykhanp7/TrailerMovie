@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/background"
+        app:cardElevation="0dp"
+        android:elevation="0dp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:gravity="center|center_horizontal|center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_alert_confirm_log_out"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/do_you_sure_to_log_out"
+                android:textColor="#FF7E00"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/background_corner_button_log_in"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/black"
+                    android:id="@+id/buttonCancelLogOut"/>
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/background_corner_button_log_in"
+                    android:gravity="center"
+                    android:text="@string/sure"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:id="@+id/buttonSureLogout"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+

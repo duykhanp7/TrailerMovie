@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_corner_top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_30sdp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/layoutChooseFromGallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/background_item_settings_clicked"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_30sdp"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_gallery" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_weight="2"
+                android:text="@string/choose_from_your_gallery"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/view_divider"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutTakeAPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/background_item_settings_clicked"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_30sdp"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_camera" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_weight="2"
+                android:text="@string/take_a_photo_now"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
+

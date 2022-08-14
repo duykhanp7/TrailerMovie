@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_corner_top"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/lightMode"
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/background_item_settings_clicked"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_50sdp"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_weight="1"
+                        android:src="@drawable/vietnam" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingStart="@dimen/_30sdp"
+                        android:text="@string/theme_light"
+                        android:textAlignment="textStart"
+                        android:textColor="#FF9800"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@color/background_view_divider" />
+
+                <LinearLayout
+                    android:id="@+id/darkMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/background_item_settings_clicked"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_50sdp"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_weight="1"
+                        android:src="@drawable/usa" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingStart="@dimen/_30sdp"
+                        android:text="@string/theme_dark"
+                        android:textAlignment="textStart"
+                        android:textColor="#FF9800"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

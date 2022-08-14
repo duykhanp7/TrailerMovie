@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="isSearching"
+            type="Boolean" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layoutMainShowMoviesByType"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#5E4A51">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_15sdp"
+                android:weightSum="5">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start">
+
+                    <ImageView
+                        android:id="@+id/backIcon"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:src="@drawable/ic_back_arrow" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="4">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        tools:ignore="NestedWeights"
+                        android:gravity="center"
+                        android:id="@+id/layoutTextViewGenre"
+                        android:visibility="@{isSearching ? View.GONE : View.VISIBLE}">
+
+                        <TextView
+                            android:id="@+id/textViewMovieGenres"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_25sdp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_15sdp"
+                            tools:text="Documentary" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        tools:visibility="gone"
+                        android:id="@+id/layoutSearchView"
+                        android:visibility="@{isSearching ? View.VISIBLE : View.GONE}">
+
+                        <androidx.appcompat.widget.SearchView
+                            android:id="@+id/searchView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_35sdp"
+                            android:background="@drawable/background_corner_search_view"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:focusedByDefault="true"
+                            android:gravity="end"
+                            app:iconifiedByDefault="false"
+                            app:queryHint="@string/search_movie"
+                            app:searchIcon="@null" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/layoutIconSearch"
+                        android:gravity="end"
+                        android:visibility="@{isSearching ? View.GONE : View.VISIBLE}">
+
+                        <ImageView
+                            android:id="@+id/searchIcon"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/ic_search"
+                            app:tint="@color/white" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_10sdp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewByType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingTop="@dimen/_10sdp"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:spanCount="3"
+                    tools:itemCount="12"
+                    tools:listitem="@layout/layout_item_film" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+

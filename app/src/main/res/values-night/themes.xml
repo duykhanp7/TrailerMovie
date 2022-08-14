@@ -1,0 +1,60 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SendingEmail" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/black</item>
+        <item name="android:textColorPrimary">#FF9800</item>
+        <item name="fontFamily">@font/roboto_light</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">#FF9800</item>
+        <item name="android:windowAnimationStyle">@style/customAnimationSwitchActivity</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textCursorDrawable"> @drawable/cursor_drawable</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="customAnimationSwitchActivity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_activity_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_activity_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_activity_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_activity_close_exit</item>
+    </style>
+
+    <style name="addKeyboardOpenWhenRequestFocus" parent="Widget.AppCompat.SearchView">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <!--CHANGE TEXT COLOR OF ITEM SPINNER-->
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">#FF9800</item>
+        <item name="backgroundColor">@color/black</item>
+    </style>
+
+    <!--CHANGE BACKGROUND COLOR OF BOTTOM SHEET DIALOG CHANGES PASSWORD-->
+    <style name="changeBackgroundOfBottomSheetChangePassword" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/backgroundTransparentBottomSheet</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="backgroundTransparentBottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="backgroundTransparentOfAlertDialog" parent="Widget.AppCompat.ButtonBar.AlertDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+</resources>

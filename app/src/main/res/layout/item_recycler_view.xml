@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.movies.adapter.movie.MoviesAdapterByGenres"/>
+        <import type="android.view.View"/>
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/layoutItemRecyclerView"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <TextView
+                    android:id="@+id/titleGenre"
+                    android:text="@{item.title}"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:gravity="start|left"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_next"
+                        app:tint="#FF9800"
+                        android:id="@+id/moreMovieByType"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/subRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_155sdp"
+                android:orientation="horizontal"
+                bind:setSubAdapter="@{item}" />
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/shimmerLayoutItemRecyclerView"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/titleGenreShimmer"
+                    android:layout_width="@dimen/_210sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:background="@drawable/border_text_title_shimmer"
+                    android:gravity="start"
+                    android:textColor="#FF9800"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/subRecyclerViewShimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_155sdp"
+                    android:layout_below="@+id/titleGenreShimmer"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:background="@drawable/border_text_title_shimmer"
+                    android:orientation="horizontal" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+

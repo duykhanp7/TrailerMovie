@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    app:ignore="NamespaceTypo">
+
+    <data>
+        <variable
+            name="itemFilm"
+            type="com.example.movies.model.movie.MovieObject.Movie" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.card.MaterialCardView
+            xmlns:bind="http://schemas.android.com/apk/res-auto"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_130sdp"
+            bind:cardCornerRadius="@dimen/_4sdp"
+            bind:cardElevation="0dp"
+            android:minWidth="0dp"
+            android:id="@+id/layoutMovieNotShimmer"
+            android:visibility="gone"
+            bind:cardBackgroundColor="@color/black"
+            bind:cardPreventCornerOverlap="true"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            >
+            <RelativeLayout
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:background="#D1D1D1">
+
+                <ImageView
+                    android:id="@+id/poster"
+                    android:scaleType="centerCrop"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_130sdp"
+                    bind:imageURLMovie="@{itemFilm}" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shimmerLayoutMovie"
+            android:visibility="visible"
+            app1:layout_constraintTop_toTopOf="parent"
+            app1:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                xmlns:bind="http://schemas.android.com/apk/res-auto"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_130sdp"
+                bind:cardCornerRadius="@dimen/_4sdp"
+                bind:cardElevation="0dp"
+                android:minWidth="0dp"
+                bind:cardBackgroundColor="@color/black"
+                bind:cardPreventCornerOverlap="true"
+                bind:layout_constraintTop_toTopOf="parent"
+                bind:layout_constraintStart_toStartOf="parent"
+                >
+                <RelativeLayout
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_130sdp"
+                    android:background="#D1D1D1">
+
+                    <ImageView
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_130sdp"
+                        android:scaleType="centerCrop" />
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "466475919107",
+    "firebase_url": "https://movieapptrailer-default-rtdb.firebaseio.com",
+    "project_id": "movieapptrailer",
+    "storage_bucket": "movieapptrailer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466475919107:android:3800db591cac89bd36eb36",
+        "android_client_info": {
+          "package_name": "com.example.movies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466475919107-55f58ds0mc01gf13cnc3rv0aij2fvu4k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.movies",
+            "certificate_hash": "c4eccc9d072a1d2b67f00a18d7fd2fe66b090b63"
+          }
+        },
+        {
+          "client_id": "466475919107-uvgledmqotkuoj7d4jtvdnuk5s3fgf7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNhPmN467uvs-n5gFKZNNCCSQMZ7hNxl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466475919107-uvgledmqotkuoj7d4jtvdnuk5s3fgf7m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

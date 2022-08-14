@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/brown_light"/>
+                    <size android:width="200dp"
+                            android:height="200dp"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/popcorn"
+                android:top="200dp"
+                android:bottom="200dp"
+                android:end="200dp"
+                android:start="200dp">
+
+            </item>
+        </layer-list>
+    </item>
+
+
+</selector>

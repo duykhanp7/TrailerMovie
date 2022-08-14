@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.movies.model.crew.Crew" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_130sdp"
+        bind:cardCornerRadius="@dimen/_4sdp"
+        bind:cardElevation="0dp"
+        android:background="@color/white"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:minWidth="0dp"
+        >
+        <RelativeLayout
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:background="#D1D1D1">
+
+            <ImageView
+                android:id="@+id/posterCrew"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:scaleType="centerCrop"
+                bind:imageURLCrew="@{item}" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
+
