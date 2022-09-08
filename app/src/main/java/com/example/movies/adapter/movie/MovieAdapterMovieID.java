@@ -11,10 +11,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movies.R;
-import com.example.movies.api.APIGetData;
+import com.example.movies.data.api.APIGetData;
 import com.example.movies.databinding.LayoutItemFilmBinding;
 import com.example.movies.listener.movie.IRecommendationsClickListener;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.movie.MovieObject;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class MovieAdapterMovieID extends RecyclerView.Adapter<MovieAdapterMovieI
     String type;
     String typeMovieOrTVShow;
 
-    public MovieAdapterMovieID(String typeMovieOrTVShowTemp,MovieObject.Movie movie, IRecommendationsClickListener iRecommendationsClickListener, String type){
+    public MovieAdapterMovieID(String typeMovieOrTVShowTemp, MovieObject.Movie movie, IRecommendationsClickListener iRecommendationsClickListener, String type) {
         this.moviesList = new ArrayList<>();
         this.movieOriginal = movie;
         this.iRecommendationsClickListener = iRecommendationsClickListener;
@@ -41,38 +41,38 @@ public class MovieAdapterMovieID extends RecyclerView.Adapter<MovieAdapterMovieI
         this.typeMovieOrTVShow = typeMovieOrTVShowTemp;
     }
 
-    public void setMoviesList(List<MovieObject.Movie> moviesRecommendations){
+    /**
+     * Thêm danh sách phim
+     */
+    public void setMoviesList(List<MovieObject.Movie> moviesRecommendations) {
         this.moviesList = moviesRecommendations;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutItemFilmBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_item_film,parent,false);
-        return new ViewHolder(binding,iRecommendationsClickListener);
+        LayoutItemFilmBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_item_film, parent, false);
+        return new ViewHolder(binding, iRecommendationsClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         MovieObject.Movie movie = moviesList.get(position);
-        holder.binding.setItemFilm(movie);
-        holder.setMovie(movie);
-        if(position == moviesList.size() - 3){
+        holder.bindData(movie);
+
+        if (position == moviesList.size() - 3) {
             new Thread(() -> fetchMovies(movieOriginal.getId())).start();
         }
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                holder.binding.shimmerLayoutMovie.post(()->holder.binding.shimmerLayoutMovie.setVisibility(View.GONE));
-                holder.binding.layoutMovieNotShimmer.post(()->holder.binding.layoutMovieNotShimmer.setVisibility(View.VISIBLE));
-            }
-        },500);
-        holder.setIsRecyclable(false);
+        //holder.setIsRecyclable(false);
     }
 
-    public synchronized void fetchMovies(String id){
-        APIGetData.apiGetData.getMoviesByIdAndTitle(typeMovieOrTVShow,id,type, Utils.API_MOVIE_KEY, String.valueOf(++page)).enqueue(new Callback<MovieObject>() {
+    /**
+     * Load phim dựa theo loại chương trình, thể loại phim, page
+     */
+    public synchronized void fetchMovies(String id) {
+        APIGetData.apiGetData.getMoviesByIdAndTitle(typeMovieOrTVShow, id, type, Utils.API_MOVIE_KEY, String.valueOf(++page)).enqueue(new Callback<MovieObject>() {
             @Override
             public void onResponse(@NonNull Call<MovieObject> call, @NonNull Response<MovieObject> response) {
 
@@ -82,8 +82,7 @@ public class MovieAdapterMovieID extends RecyclerView.Adapter<MovieAdapterMovieI
                     List<MovieObject.Movie> movies = response.body().getMoviesList();
                     moviesList.addAll(movies);
                     notifyItemRangeInserted(size, moviesList.size());
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -101,7 +100,7 @@ public class MovieAdapterMovieID extends RecyclerView.Adapter<MovieAdapterMovieI
         return moviesList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         LayoutItemFilmBinding binding;
         IRecommendationsClickListener iRecommendationsClickListener;
@@ -119,8 +118,21 @@ public class MovieAdapterMovieID extends RecyclerView.Adapter<MovieAdapterMovieI
             iRecommendationsClickListener.onRecommendationItemClick(movie);
         }
 
-        public void setMovie(MovieObject.Movie movie){
+        /**
+         * Load data và hiệu ứng mờ khi đang load data
+         */
+        public void bindData(MovieObject.Movie movie) {
             this.movie = movie;
+            binding.setItemFilm(movie);
+
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    binding.shimmerLayoutMovie.post(() -> binding.shimmerLayoutMovie.setVisibility(View.GONE));
+                    binding.layoutMovieNotShimmer.post(() -> binding.layoutMovieNotShimmer.setVisibility(View.VISIBLE));
+                }
+            }, 500);
+
         }
     }
 }

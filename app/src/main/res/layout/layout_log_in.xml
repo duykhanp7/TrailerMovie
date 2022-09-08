@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="com.example.movies.activity.loginorsignup.LoginOrSignUpActivity" />
+        <import type="com.example.movies.ui.activity.loginorsignup.LoginOrSignUpActivity" />
     </data>
 
     <LinearLayout
@@ -165,6 +165,7 @@
                     android:weightSum="2">
 
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/buttonRememberMe"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_marginStart="@dimen/_20sdp"
@@ -172,7 +173,7 @@
                         android:buttonTint="#FF9800"
                         android:gravity="center_vertical"
                         android:text="@string/remember_me"
-                        android:textColor="@color/text_login_signup_color"/>
+                        android:textColor="@color/text_login_signup_color" />
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -9,7 +9,7 @@
 
         <variable
             name="main"
-            type="com.example.movies.activity.main.MainActivity" />
+            type="com.example.movies.ui.activity.main.MainActivity" />
 
         <import type="android.view.View" />
     </data>
@@ -77,6 +77,9 @@
                                 android:foregroundTint="@color/background"
                                 android:gravity="center"
                                 android:popupBackground="@drawable/background_spinner_corner"
+                                android:scrollbarSize="0dp"
+                                android:scrollbarThumbVertical="@null"
+                                android:scrollbars="none"
                                 android:textAlignment="center"
                                 android:theme="@style/mySpinnerItemStyle"
                                 android:visibility="@{main.isSearchMovie ? View.GONE:View.VISIBLE}" />
@@ -108,7 +111,7 @@
                             android:visibility="@{main.isSearchMovie ? View.VISIBLE:View.GONE}"
                             app:iconifiedByDefault="false"
                             app:queryHint="@string/search_movie"
-                            app:searchIcon="@null"></androidx.appcompat.widget.SearchView>
+                            app:searchIcon="@null" />
 
 
                         <ImageView
@@ -132,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/background"
-                    tools:context=".activity.main.MainActivity">
+                    tools:context=".ui.activity.main.MainActivity">
 
                     <androidx.core.widget.NestedScrollView
                         android:id="@+id/scrollView"
@@ -148,7 +151,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -172,7 +175,38 @@
                                     android:paddingBottom="@dimen/_80sdp"
                                     android:visibility="@{main.hasSearched ? View.VISIBLE:View.GONE}" />
 
-                            </LinearLayout>
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recyclerViewSearchMovieShimmer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="750dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginEnd="@dimen/_5sdp"
+                                    android:background="@color/background"
+                                    android:clipToPadding="false"
+                                    android:paddingBottom="@dimen/_80sdp"
+                                    android:visibility="gone" />
+
+                                <RelativeLayout
+                                    android:id="@+id/layoutNotResultReturn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/_200sdp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:gravity="center"
+                                        android:textSize="@dimen/_13sdp"
+                                        android:text="@string/no_results_matches" />
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"

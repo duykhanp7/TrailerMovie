@@ -1,6 +1,6 @@
 package com.example.movies.listener.update;
 
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.movie.MovieObject;
 import java.util.List;
 
 public interface IUpdateData {

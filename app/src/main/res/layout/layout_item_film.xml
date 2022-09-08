@@ -7,33 +7,33 @@
     app:ignore="NamespaceTypo">
 
     <data>
+
         <variable
             name="itemFilm"
-            type="com.example.movies.model.movie.MovieObject.Movie" />
+            type="com.example.movies.data.model.movie.MovieObject.Movie" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="@dimen/_10sdp">
 
 
-        <com.google.android.material.card.MaterialCardView
-            xmlns:bind="http://schemas.android.com/apk/res-auto"
+        <com.google.android.material.card.MaterialCardView xmlns:bind="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layoutMovieNotShimmer"
             android:layout_width="@dimen/_90sdp"
             android:layout_height="@dimen/_130sdp"
-            bind:cardCornerRadius="@dimen/_4sdp"
-            bind:cardElevation="0dp"
             android:minWidth="0dp"
-            android:id="@+id/layoutMovieNotShimmer"
             android:visibility="gone"
             bind:cardBackgroundColor="@color/black"
+            bind:cardCornerRadius="@dimen/_4sdp"
+            bind:cardElevation="0dp"
             bind:cardPreventCornerOverlap="true"
-            bind:layout_constraintTop_toTopOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
-            >
+            bind:layout_constraintTop_toTopOf="parent">
+
             <RelativeLayout
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_130sdp"
@@ -41,9 +41,9 @@
 
                 <ImageView
                     android:id="@+id/poster"
-                    android:scaleType="centerCrop"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_130sdp"
+                    android:scaleType="centerCrop"
                     bind:imageURLMovie="@{itemFilm}" />
 
             </RelativeLayout>
@@ -51,25 +51,24 @@
 
 
         <RelativeLayout
+            android:id="@+id/shimmerLayoutMovie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/shimmerLayoutMovie"
             android:visibility="visible"
-            app1:layout_constraintTop_toTopOf="parent"
-            app1:layout_constraintStart_toStartOf="parent">
+            app1:layout_constraintStart_toStartOf="parent"
+            app1:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.card.MaterialCardView
-                xmlns:bind="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.card.MaterialCardView xmlns:bind="http://schemas.android.com/apk/res-auto"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_130sdp"
-                bind:cardCornerRadius="@dimen/_4sdp"
-                bind:cardElevation="0dp"
                 android:minWidth="0dp"
                 bind:cardBackgroundColor="@color/black"
+                bind:cardCornerRadius="@dimen/_4sdp"
+                bind:cardElevation="0dp"
                 bind:cardPreventCornerOverlap="true"
-                bind:layout_constraintTop_toTopOf="parent"
                 bind:layout_constraintStart_toStartOf="parent"
-                >
+                bind:layout_constraintTop_toTopOf="parent">
+
                 <RelativeLayout
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_130sdp"

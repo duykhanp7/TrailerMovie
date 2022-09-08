@@ -2,10 +2,12 @@
 
 
 <layout>
+
     <data>
+
         <variable
             name="item"
-            type="com.example.movies.model.videos.TrailerObject.Trailer" />
+            type="com.example.movies.data.model.videos.TrailerObject.Trailer" />
     </data>
 
 
@@ -13,14 +15,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.youtube.WatchTrailerActivity">
+        tools:context=".ui.activity.youtube.WatchTrailerActivity">
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/youtubePlayerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            tools:context=".activity.youtube.WatchTrailerActivity"/>
+            tools:context=".ui.activity.youtube.WatchTrailerActivity" />
 
 
     </RelativeLayout>

@@ -25,31 +25,24 @@
                 <LinearLayout
                     android:id="@+id/lightMode"
                     android:layout_width="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/background_item_settings_clicked"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingStart="@dimen/_50sdp"
-                    android:weightSum="3">
+                    >
 
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_weight="1"
-                        android:src="@drawable/vietnam" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:paddingStart="@dimen/_30sdp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="@string/theme_light"
-                        android:textAlignment="textStart"
                         android:textColor="#FF9800"
-                        android:textSize="@dimen/_15sdp"
+                        android:textSize="@dimen/_13sdp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -66,31 +59,23 @@
                     android:id="@+id/darkMode"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/background_item_settings_clicked"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingStart="@dimen/_50sdp"
                     android:weightSum="3">
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_weight="1"
-                        android:src="@drawable/usa" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:paddingStart="@dimen/_30sdp"
+                        android:layout_height="match_parent"
                         android:text="@string/theme_dark"
-                        android:textAlignment="textStart"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:textColor="#FF9800"
-                        android:textSize="@dimen/_15sdp"
+                        android:textSize="@dimen/_13sdp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

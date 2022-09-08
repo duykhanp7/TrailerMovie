@@ -42,6 +42,7 @@
         <entry key="..\:/All Project/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_setting.xml" value="0.18" />
         <entry key="..\:/All Project/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_sign_up.xml" value="0.33" />
         <entry key="..\:/All Project/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/tv_show_layout.xml" value="0.17074275362318841" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable-v24/background_corner_brown.xml" value="0.1225" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable-v24/background_corner_top_black.xml" value="0.1355" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable-v24/background_corner_top_white.xml" value="0.1355" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_alert_confirm_log_out.xml" value="0.1355" />
@@ -50,25 +51,34 @@
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_corner_search_view.xml" value="0.1355" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_corner_top.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_corner_top_bottom_sheet_change_password.xml" value="0.146" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_corner_top_sheet_comment.xml" value="0.1225" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_corner_white.xml" value="0.1225" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_item_black.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_item_blur.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_item_setting_selected.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_item_settings_clicked.xml" value="0.146" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_item_settings_clicked_white.xml" value="0.1" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_item_white.xml" value="0.1" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_login_corner_left.xml" value="0.1355" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_profile_user_null.xml" value="0.146" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_shimmer.xml" value="0.1225" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_shimmer_circle.xml" value="0.1225" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/background_spinner_corner.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/cursor_color_custom.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/cursor_drawable.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/favorites_ic_normal.xml" value="0.1355" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/favorites_tint.xml" value="0.1325" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/ic_back.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/ic_back_arrow.xml" value="0.1355" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/ic_drop_down.xml" value="0.1225" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/tint_button_like.xml" value="0.1225" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/top_appbar_layout_corner.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/drawable/user.xml" value="0.146" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout-land/activity_main.xml" value="0.12" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_details_character.xml" value="0.25" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_details_character.xml" value="0.14" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_main.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_main2.xml" value="0.17346014492753623" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_movie_details.xml" value="0.22" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_movie_details.xml" value="0.12" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_splash_screen.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_user_profile.xml" value="0.1" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_watch_trailer.xml" value="0.17346014492753623" />
@@ -78,27 +88,32 @@
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_password.xml" value="0.18" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_theme.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_choose_image_options.xml" value="0.25" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_comment.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_information_personal.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_cast_details_layout.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_cast_layout.xml" value="0.17346014492753623" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_comment.xml" value="0.2" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_crew_details_layout.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_crew_layout.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_recycler_view.xml" value="0.2" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_spinner.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_spinner_selected.xml" value="0.17346014492753623" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_youtube_view.xml" value="0.17346014492753623" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_bottom_sheet_expand_show_films_by_type.xml" value="0.25" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_youtube_view.xml" value="0.14" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_bottom_sheet_expand_show_films_by_type.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_confirm_log_out.xml" value="0.25" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_dialog_confirm_change_language.xml" value="0.13217213114754098" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_exo_player.xml" value="0.17346014492753623" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_favorite.xml" value="0.17346014492753623" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_favorite.xml" value="0.14" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_item_film.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_item_film_details.xml" value="0.17346014492753623" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_item_keyword.xml" value="0.14" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_log_in.xml" value="0.22" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_options_login_signup.xml" value="0.10190217391304347" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_others.xml" value="0.17346014492753623" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_options_login_signup.xml" value="0.18" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_others.xml" value="0.18" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_setting.xml" value="0.25" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_sign_up.xml" value="0.22" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/tv_show_layout.xml" value="0.17346014492753623" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/menu/search_item.xml" value="0.2" />
         <entry key="..\:/Users/duy khan/AndroidStudioProjects/SendingEmail/app/src/main/res/drawable/backgound_text_null.xml" value="0.119" />
         <entry key="..\:/Users/duy khan/AndroidStudioProjects/SendingEmail/app/src/main/res/drawable/background_corner_search_view.xml" value="0.1345" />
         <entry key="..\:/Users/duy khan/AndroidStudioProjects/SendingEmail/app/src/main/res/drawable/background_corner_top.xml" value="0.1345" />

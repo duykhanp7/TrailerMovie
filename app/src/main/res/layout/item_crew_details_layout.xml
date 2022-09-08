@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="item"
-            type="com.example.movies.model.crew.Crew" />
-        <import type="android.view.View"/>
+            type="com.example.movies.data.model.crew.Crew" />
+
+        <import type="android.view.View" />
     </data>
 
 
-    <com.google.android.material.card.MaterialCardView
-        xmlns:bind="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.card.MaterialCardView xmlns:bind="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_130sdp"
-        bind:cardCornerRadius="@dimen/_4sdp"
-        bind:cardElevation="0dp"
-        android:background="@color/white"
         android:layout_marginStart="@dimen/_10sdp"
-        android:minWidth="0dp"
         android:layout_marginBottom="@dimen/_5sdp"
-        >
+        android:background="@color/white"
+        android:minWidth="0dp"
+        bind:cardCornerRadius="@dimen/_4sdp"
+        bind:cardElevation="0dp">
+
         <LinearLayout
+            android:id="@+id/layoutCrew"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_130sdp"
             android:background="@color/background"
-            android:orientation="horizontal"
-            android:id="@+id/layoutCrew">
+            android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
@@ -38,59 +38,58 @@
 
                 <ImageView
                     android:id="@+id/posterCastDetails"
-                    android:scaleType="centerCrop"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_130sdp"
+                    android:scaleType="centerCrop"
                     bind:imageURLCrew="@{item}" />
 
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingStart="@dimen/_20sdp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_gravity="center"
-                android:paddingEnd="@dimen/_10sdp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_20sdp"
+                android:paddingEnd="@dimen/_10sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_13sdp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@{item.name}"
-                    android:textStyle="bold"
                     android:textColor="#FF9800"
-                    android:visibility="@{item.name == null ? View.GONE:View.VISIBLE}"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    android:visibility="@{item.name == null ? View.GONE:View.VISIBLE}" />
 
                 <TextView
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_13sdp"
                     android:id="@+id/textTitleRole"
-                    android:text="@{item.known_for_department}"
-                    android:visibility="@{item.known_for_department == null ? View.GONE:View.VISIBLE}"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_marginTop="@dimen/_15sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_13sdp"
-                    android:id="@+id/textTitleRole2"
-                    android:text="@{item.job}"
-                    android:visibility="@{item.job == null ? View.GONE:View.VISIBLE}"
                     android:layout_gravity="center"
-                    android:gravity="center"/>
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:gravity="center"
+                    android:text="@{item.known_for_department}"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="@{item.known_for_department == null ? View.GONE:View.VISIBLE}" />
+
+                <TextView
+                    android:id="@+id/textTitleRole2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:gravity="center"
+                    android:text="@{item.job}"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="@{item.job == null ? View.GONE:View.VISIBLE}" />
 
             </LinearLayout>
 
         </LinearLayout>
-
 
 
     </com.google.android.material.card.MaterialCardView>

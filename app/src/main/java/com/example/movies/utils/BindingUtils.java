@@ -1,19 +1,20 @@
 package com.example.movies.utils;
 
-import static com.example.movies.activity.details.DetailsMovieActivity.chipTextClicked;
-import static com.example.movies.activity.details.DetailsMovieActivity.movieByChipGenres;
-import static com.example.movies.activity.details.DetailsMovieActivity.searchMovieAdapterByGenresObservableField;
-import static com.example.movies.activity.main.MainActivity.movieResources;
-import static com.example.movies.activity.main.MainActivity.parentAdapterMovieObservableField;
-import static com.example.movies.activity.main.MainActivity.parentAdapterTVShowObservableField;
+import static com.example.movies.ui.activity.details.DetailsMovieActivity.chipTextClicked;
+import static com.example.movies.ui.activity.details.DetailsMovieActivity.movieByChipGenres;
+import static com.example.movies.ui.activity.details.DetailsMovieActivity.searchMovieAdapterByGenresObservableField;
+import static com.example.movies.ui.activity.main.MainActivity.globalContextLanguage;
+import static com.example.movies.ui.activity.main.MainActivity.movieResources;
+import static com.example.movies.ui.activity.main.MainActivity.parentAdapterMovieObservableField;
+import static com.example.movies.ui.activity.main.MainActivity.parentAdapterTVShowObservableField;
 import static com.example.movies.resources.MovieResources.mapGenresIDMovie;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
@@ -28,12 +29,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.movies.R;
-import com.example.movies.activity.main.MainActivity;
+import com.example.movies.ui.activity.main.MainActivity;
 import com.example.movies.adapter.cast.CastAdapter;
 import com.example.movies.adapter.cast.CastDetailsAdapter;
 import com.example.movies.adapter.crew.CrewAdapter;
 import com.example.movies.adapter.crew.CrewDetailsAdapter;
-import com.example.movies.adapter.movie.FavoriteMoviesAdapter;
 import com.example.movies.adapter.movie.MovieAdapterByIDOfCastCrew;
 import com.example.movies.adapter.movie.MovieAdapterMovieID;
 import com.example.movies.adapter.movie.MoviesAdapterByGenres;
@@ -41,12 +41,11 @@ import com.example.movies.adapter.resources.ParentAdapter;
 import com.example.movies.adapter.search.SearchMovieAdapter;
 import com.example.movies.adapter.search.SearchMovieAdapterByGenres;
 import com.example.movies.adapter.videos.VideosAdapter;
-import com.example.movies.model.cast.Cast;
-import com.example.movies.model.anothers.CreateBy;
-import com.example.movies.model.crew.Crew;
-import com.example.movies.model.genres.GenreObject;
-import com.example.movies.model.movie.MovieObject;
-import com.example.movies.model.users.UserProfile;
+import com.example.movies.data.model.cast.Cast;
+import com.example.movies.data.model.anothers.CreateBy;
+import com.example.movies.data.model.crew.Crew;
+import com.example.movies.data.model.genres.GenreObject;
+import com.example.movies.data.model.movie.MovieObject;
 import com.google.android.material.chip.Chip;
 import com.squareup.picasso.Picasso;
 
@@ -58,6 +57,7 @@ import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.glailton.expandabletextview.ExpandableTextView;
 
 public class BindingUtils {
 
@@ -259,7 +259,7 @@ public class BindingUtils {
             if (movie.getStaff().getCrews() != null) {
                 for (Crew crew : movie.getStaff().getCrews()) {
                     if (crew.getJob().equals("Director")) {
-                        textView.setText("Director: " + crew.getName());
+                        textView.setText(globalContextLanguage.getResources().getString(R.string.director)+": " + crew.getName());
                     }
                 }
             }
@@ -269,10 +269,10 @@ public class BindingUtils {
                 createBy.add(item.getName());
             }
             if (createBy.size() == 0) {
-                createBy.add("No creator");
+                createBy.add(globalContextLanguage.getResources().getString(R.string.no_creator));
             }
             String textCreateBy = TextUtils.join(", ", createBy);
-            textView.setText("Created: " + textCreateBy);
+            textView.setText(globalContextLanguage.getResources().getString(R.string.director) +": "+ textCreateBy);
         }
     }
 
@@ -293,7 +293,7 @@ public class BindingUtils {
                     strings.add(movie.getReleaseDate().split("-")[0]);
                 }
                 if (runtime != null) {
-                    strings.add(movie.getRuntime() + " minutes");
+                    strings.add(movie.getRuntime() + " "+textView.getResources().getString(R.string.minutes));
                 }
                 textView.setText(String.join(", ", strings));
             }
@@ -409,11 +409,11 @@ public class BindingUtils {
                 String gender = cast.getGender();
                 if (birthday != null && gender != null) {
                     date = format.parse(birthday);
-                    String[] str = new String[]{new SimpleDateFormat("dd-MM-yyyy").format(Objects.requireNonNull(date)), cast.getGender().equals(Utils.GENDER_MALE) ? "Male" : "Female"};
+                    String[] str = new String[]{new SimpleDateFormat("dd-MM-yyyy").format(Objects.requireNonNull(date)), cast.getGender().equals(Utils.GENDER_MALE) ? globalContextLanguage.getResources().getString(R.string.male) : globalContextLanguage.getResources().getString(R.string.female)};
                     return String.join(", ", str);
                 } else {
                     if (birthday == null && gender != null) {
-                        return gender.equals(Utils.GENDER_MALE) ? "Male" : "Female";
+                        return gender.equals(Utils.GENDER_MALE) ? globalContextLanguage.getResources().getString(R.string.male) : globalContextLanguage.getResources().getString(R.string.female);
                     } else if (birthday != null && gender == null) {
                         date = format.parse(birthday);
                         return new SimpleDateFormat("dd-MM-yyyy").format(Objects.requireNonNull(date));
@@ -440,11 +440,11 @@ public class BindingUtils {
                 String gender = crew.getGender();
                 if (birthday != null && crew.getGender() != null) {
                     date = format.parse(birthday);
-                    String[] str = new String[]{new SimpleDateFormat("dd-MM-yyyy").format(Objects.requireNonNull(date)), crew.getGender().equals(Utils.GENDER_MALE) ? "Male" : "Female"};
+                    String[] str = new String[]{new SimpleDateFormat("dd-MM-yyyy").format(Objects.requireNonNull(date)), crew.getGender().equals(Utils.GENDER_MALE) ? globalContextLanguage.getResources().getString(R.string.male) : globalContextLanguage.getResources().getString(R.string.female)};
                     return String.join(", ", str);
                 } else {
                     if (birthday == null && gender != null) {
-                        return gender.equals(Utils.GENDER_MALE) ? "Male" : "Female";
+                        return gender.equals(Utils.GENDER_MALE) ? globalContextLanguage.getResources().getString(R.string.male) : globalContextLanguage.getResources().getString(R.string.female);
                     } else if (birthday != null && gender == null) {
                         date = format.parse(birthday);
                         return new SimpleDateFormat("dd-MM-yyyy").format(Objects.requireNonNull(date));
@@ -570,7 +570,10 @@ public class BindingUtils {
             recyclerView.setLayoutManager(staggeredGridLayoutManager);
             recyclerView.setAdapter(MainActivity.watchRecentlyMoviesAdapterObservableField.get());
         } else if (positionType == 1) {
-
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
+            recyclerView.setAdapter(MainActivity.keywordAdapterObservableField.get());
         }
     }
 
@@ -578,14 +581,14 @@ public class BindingUtils {
     //BIND TEXT VIEW DISPLAY NAME
     @BindingAdapter({"firstName", "lastName"})
     public static void setDisplayName(TextView textView, String firstName, String lastName) {
-        textView.setText(String.format("%s %s %s", "Name : ", firstName, lastName));
+        textView.setText(String.format("%s %s %s", textView.getContext().getResources().getString(R.string.text_name), firstName, lastName));
     }
 
 
     //BIND TEXT VIEW DISPLAY NAME
     @BindingAdapter("birthdate")
     public static void setBirthdate(TextView textView, String birthDate) {
-        textView.setText(String.format("%s %s", "Birthdate : ", birthDate));
+        textView.setText(String.format("%s %s", textView.getContext().getResources().getString(R.string.text_birthdate), birthDate));
     }
 
     //BIND IMAGE USER
@@ -596,6 +599,103 @@ public class BindingUtils {
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.user));
         }
+    }
+
+    @BindingAdapter("hookTypeWithText")
+    public static void setTitleOnLanguage(TextView textView, String title) {
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText(getTitleResources(textView.getContext(), title));
+            }
+        });
+    }
+
+    @BindingAdapter("textOverview")
+    public static void setTextExpandable(ExpandableTextView textView, String text){
+        //android:text='@{main.movieObservableField.overview.empty ? "No overview yet.":main.movieObservableField.overview}'
+        if(text.isEmpty()){
+            textView.setText(globalContextLanguage.getResources().getString(R.string.no_overview));
+        }
+        else{
+            textView.setText(text);
+        }
+    }
+
+
+    public static String getTitleResources(Context context, String title) {
+        String newTitle = "Non title";
+        switch (title) {
+            case Utils.NowPlaying:
+                return context.getResources().getString(R.string.now_playing);
+            case Utils.Popular:
+                return context.getResources().getString(R.string.popular);
+            case Utils.TopRated:
+                return context.getResources().getString(R.string.top_rated);
+            case Utils.UpComing:
+                return context.getResources().getString(R.string.up_coming);
+            case Utils.AiringToday:
+                return context.getResources().getString(R.string.airing_today);
+            case Utils.OnTheAir:
+                return context.getResources().getString(R.string.on_the_air);
+            case Utils.Action:
+                return context.getResources().getString(R.string.action);
+            case Utils.Adventure:
+                return context.getResources().getString(R.string.adventure);
+            case Utils.Animation:
+                return context.getResources().getString(R.string.animation);
+            case Utils.Comedy:
+                return context.getResources().getString(R.string.comedy);
+            case Utils.Crime:
+                return context.getResources().getString(R.string.crime);
+            case Utils.Documentary:
+                return context.getResources().getString(R.string.documentary);
+            case Utils.Drama:
+                return context.getResources().getString(R.string.drama);
+            case Utils.Family:
+                return context.getResources().getString(R.string.family);
+            case Utils.Fantasy:
+                return context.getResources().getString(R.string.fantasy);
+            case Utils.History:
+                return context.getResources().getString(R.string.history);
+            case Utils.Horror:
+                return context.getResources().getString(R.string.horror);
+            case Utils.Music:
+                return context.getResources().getString(R.string.music);
+            case Utils.Mystery:
+                return context.getResources().getString(R.string.mystery);
+            case Utils.Romance:
+                return context.getResources().getString(R.string.romance);
+            case Utils.ScienceFiction:
+                return context.getResources().getString(R.string.science_fiction);
+            case Utils.TVMovie:
+                return context.getResources().getString(R.string.tv_movie);
+            case Utils.Thriller:
+                return context.getResources().getString(R.string.thriller);
+            case Utils.War:
+                return context.getResources().getString(R.string.war);
+            case Utils.Western:
+                return context.getResources().getString(R.string.western);
+            case Utils.ActionAdventure:
+                return context.getResources().getString(R.string.action_adventure);
+            case Utils.Kids:
+                return context.getResources().getString(R.string.kids);
+            case Utils.News:
+                return context.getResources().getString(R.string.news);
+            case Utils.Reality:
+                return context.getResources().getString(R.string.reality);
+            case Utils.SciFiFantasy:
+                return context.getResources().getString(R.string.scifi_fanta);
+            case Utils.Soap:
+                return context.getResources().getString(R.string.soap);
+            case Utils.Talk:
+                return context.getResources().getString(R.string.talk);
+            case Utils.WarPolitics:
+                return context.getResources().getString(R.string.war_politics);
+            default:
+                break;
+        }
+        return newTitle;
     }
 
 }

@@ -13,15 +13,24 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >@color/white</item>
         <item name="android:textColorPrimary">#FF9800</item>
-        <item name="fontFamily">@font/roboto_light</item>
+        <item name="fontFamily">@font/averta_regular</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">#FF9800</item>
-        <item name="android:windowAnimationStyle">@style/customAnimationSwitchActivity</item>
+<!--        <item name="android:windowAnimationStyle">@style/customAnimationSwitchActivity</item>-->
         <item name="windowActionBar">false</item>
         <item name="android:cursorVisible">true</item>
         <item name="android:textCursorDrawable"> @drawable/cursor_drawable</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="Theme.KhanTrailer.FullScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" >shortEdges
+        </item>
     </style>
 
     <style name="customAnimationSwitchActivity">
@@ -49,12 +58,38 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
+    <!--CHANGE BACKGROUND COLOR OF BOTTOM SHEET DIALOG CHANGES PASSWORD-->
+    <style name="changeBackgroundOfBottomSheetComment" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/backgroundTransparentBottomSheet</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
     <style name="backgroundTransparentBottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="background">@android:color/transparent</item>
     </style>
 
     <style name="backgroundTransparentOfAlertDialog" parent="Widget.AppCompat.ButtonBar.AlertDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+    <style name="ImageViewRippleEffect">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="LayoutRippleEffect">
+        <item name="android:background">@drawable/background_item_settings_clicked</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="LayoutRippleEffectWhite">
+        <item name="android:background">@drawable/background_item_settings_clicked_white</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
 

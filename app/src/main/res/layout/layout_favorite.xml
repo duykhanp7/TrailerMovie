@@ -1,67 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
+
         <variable
             name="positionType"
-            type="Integer"/>
+            type="Integer" />
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background">
 
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Spinner
+                    android:id="@+id/spinnerMovieCastCrew"
+                    android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:gravity="center">
+                    android:background="@color/background"
+                    android:gravity="center"
+                    android:popupBackground="@drawable/background_spinner_corner"
+                    android:textAlignment="center"
+                    android:theme="@style/mySpinnerItemStyle"
+                    android:visibility="visible" />
 
-                    <Spinner
-                        android:layout_width="@dimen/_200sdp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spinnerMovieCastCrew"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:popupBackground="@drawable/background_spinner_corner"
-                        android:textAlignment="center"
-                        android:theme="@style/mySpinnerItemStyle"
-                        android:visibility="visible"
-                        android:background="@color/background"/>
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewFavorite"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingBottom="@dimen/_90sdp"
-                    bind:positionType="@{positionType}"
-                    android:textColor="@color/white"
-                    android:gravity="center"/>
             </LinearLayout>
 
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewFavorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/_90sdp"
+                        android:textColor="@color/white"
+                        android:visibility="visible"
+                        bind:positionType="@{positionType}" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_150sdp"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:id="@+id/layoutFavoriteEmpty">
+
+                        <ImageView
+                            android:id="@+id/imageFavorite"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_110sdp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/favorites_ic_clicked" />
+
+                        <TextView
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_below="@id/imageFavorite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/textViewEmptyFavorite"
+                            android:text="@string/empty_favorite_movies"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

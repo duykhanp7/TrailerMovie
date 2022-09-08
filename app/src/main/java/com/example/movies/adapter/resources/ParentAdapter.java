@@ -1,8 +1,7 @@
 package com.example.movies.adapter.resources;
 
-import static com.example.movies.activity.main.MainActivity.movieResources;
+import static com.example.movies.ui.activity.main.MainActivity.movieResources;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -11,17 +10,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movies.R;
 import com.example.movies.adapter.movie.MoviesAdapterByGenres;
-import com.example.movies.bottomsheet.BottomSheetExpandShowMoviesByType;
+import com.example.movies.ui.bottomsheet.BottomSheetExpandShowMoviesByType;
 import com.example.movies.databinding.ItemRecyclerViewBinding;
 import com.example.movies.listener.statusbar.IOnChangeStatusBarColor;
 import com.example.movies.listener.update.IOnRefreshData;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.movie.MovieObject;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     List<String> listTitleGenres = new ArrayList<>();
     IOnRefreshData iOnRefreshData;
     FragmentManager fragmentManager;
-    private IOnChangeStatusBarColor iOnChangeStatusBarColor;
+    private final IOnChangeStatusBarColor iOnChangeStatusBarColor;
 
     public ParentAdapter(AdapterManager adapterManager, FragmentManager fragmentManagerA, IOnRefreshData iOnRefreshDataTemp, IOnChangeStatusBarColor i) {
         this.adapterManager = adapterManager;
@@ -59,30 +57,17 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         if (adapterManager.mapListMoviesObservableFieldAdapter.size() > 0 && listTitleGenres.size() > 0) {
             bindings.add(holder.binding);
             MoviesAdapterByGenres item = Objects.requireNonNull(adapterManager.mapListMoviesObservableFieldAdapter.get(listTitleGenres.get(position))).get();
             if (position <= Utils.titleGenresMovie.size() - 1) {
                 Objects.requireNonNull(item).setTitle(listTitleGenres.get(position));
             }
-            holder.binding.setItem(item);
-            holder.setItemAdapter(item);
 
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                holder.binding.shimmerLayoutItemRecyclerView.post(() -> holder.binding.shimmerLayoutItemRecyclerView.setVisibility(View.GONE));
-                holder.binding.layoutItemRecyclerView.post(() -> holder.binding.layoutItemRecyclerView.setVisibility(View.VISIBLE));
-            }, 1500);
+            holder.bindData(item);
 
-            holder.binding.moreMovieByType.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    BottomSheetExpandShowMoviesByType bottomSheetExpandShowMoviesByType = new BottomSheetExpandShowMoviesByType(view.getContext(), adapterManager.typeMovieOrTVShow, listTitleGenres.get(holder.getAbsoluteAdapterPosition()), new ArrayList<>(holder.itemAdapter.getMovieList()),holder.itemAdapter.singleItemClicked,iOnChangeStatusBarColor,holder.itemAdapter.page);
-                    bottomSheetExpandShowMoviesByType.show(fragmentManager, "AAA");
-                }
-            });
-
-        }
-        else{
+        } else {
             movieResources.fetchDataAgain();
         }
 
@@ -140,7 +125,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
         private ItemRecyclerViewBinding binding;
         private MoviesAdapterByGenres itemAdapter;
 
@@ -149,8 +134,28 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ViewHolder
             this.binding = item;
         }
 
-        public void setItemAdapter(MoviesAdapterByGenres item) {
+        public void bindData(MoviesAdapterByGenres item) {
             this.itemAdapter = item;
+
+            binding.setItem(item);
+
+            bindListener();
+
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                binding.shimmerLayoutItemRecyclerView.post(() -> binding.shimmerLayoutItemRecyclerView.setVisibility(View.GONE));
+                binding.layoutItemRecyclerView.post(() -> binding.layoutItemRecyclerView.setVisibility(View.VISIBLE));
+            }, 1500);
+
+        }
+
+        public void bindListener() {
+            binding.moreMovieByType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BottomSheetExpandShowMoviesByType bottomSheetExpandShowMoviesByType = new BottomSheetExpandShowMoviesByType(view.getContext(), adapterManager.typeMovieOrTVShow, listTitleGenres.get(getAbsoluteAdapterPosition()), new ArrayList<>(itemAdapter.getMovieList()), itemAdapter.singleItemClicked, iOnChangeStatusBarColor, itemAdapter.page);
+                    bottomSheetExpandShowMoviesByType.show(fragmentManager, "AAA");
+                }
+            });
         }
 
     }

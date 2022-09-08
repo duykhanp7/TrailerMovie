@@ -2,17 +2,15 @@
 <layout>
 
 
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         app:layoutDescription="@xml/activity_splash_screen_scene2"
-        tools:context=".activity.splash.SplashScreen"
-        android:id="@+id/motionLayout"
-        android:background="@color/background">
+        tools:context=".ui.activity.splash.SplashScreen">
 
         <ImageView
             android:id="@+id/imageViewSub"

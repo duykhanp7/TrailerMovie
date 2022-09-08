@@ -1,17 +1,15 @@
 package com.example.movies.resources;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.example.movies.BR;
-import com.example.movies.api.APIGetData;
+import com.example.movies.data.api.APIGetData;
 import com.example.movies.listener.update.IUpdateData;
-import com.example.movies.model.genres.GenreObject;
-import com.example.movies.model.languages.Language;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.genres.GenreObject;
+import com.example.movies.data.model.languages.Language;
+import com.example.movies.data.model.movie.MovieObject;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
@@ -23,8 +21,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ *
+ */
 public class MovieResources extends BaseObservable {
-
 
     public final IUpdateData updateData;
     //GENRE LIST
@@ -58,8 +58,10 @@ public class MovieResources extends BaseObservable {
         getLanguages();
     }
 
-
-    public void fetchDataAgain(){
+    /**
+     * Load lại data
+     */
+    public void fetchDataAgain() {
         Utils.titleGenresMovie.clear();
         Utils.titleGenresTVShow.clear();
         languages.clear();

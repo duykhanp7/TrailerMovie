@@ -1,7 +1,8 @@
+
+
 package com.example.movies.adapter.cast;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +13,33 @@ import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movies.R;
-import com.example.movies.api.APIGetData;
+import com.example.movies.data.api.APIGetData;
 import com.example.movies.databinding.ItemCastLayoutBinding;
 import com.example.movies.listener.cast.ICastItemClickListener;
-import com.example.movies.model.anothers.IDMovieObject;
-import com.example.movies.model.anothers.Person;
-import com.example.movies.model.cast.Cast;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.anothers.Person;
+import com.example.movies.data.model.cast.Cast;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Adapter diễn viên
+ */
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
 
     public List<Cast> casts;
     public Map<String, Person> personMap;
     public static ObservableField<List<Cast>> castObservable = new ObservableField<>();
     ICastItemClickListener iCastItemClickListener;
+
 
     public CastAdapter(ICastItemClickListener iCastItemClickListener) {
         casts = new ArrayList<>();
@@ -44,19 +48,18 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         this.iCastItemClickListener = iCastItemClickListener;
     }
 
+    /**
+     * Thêm danh sách các diễn viên
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void setCasts(List<Cast> casts) {
         this.casts = casts;
         castObservable.set(casts);
-        //notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setCastList(List<Cast> castList) {
-        this.casts = castList;
-        notifyDataSetChanged();
-    }
-
+    /**
+     * Thêm diễn viên
+     */
     public void addCast(Cast cast) {
         int size = casts.size();
         casts.add(size, cast);
@@ -64,6 +67,9 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         notifyItemInserted(size);
     }
 
+    /**
+     * Xóa bỏ diễn viên
+     */
     public void removeCast(Cast cast) {
         int positionItemRemove = getPositionCast(cast);
         this.casts.remove(positionItemRemove);
@@ -71,6 +77,9 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         this.notifyItemRemoved(positionItemRemove);
     }
 
+    /**
+     * Trả về vị trí của diễn viên
+     */
     private int getPositionCast(Cast cast) {
         for (int i = 0; i < casts.size(); i++) {
             if (casts.get(i).getId().equals(cast.getId())) {
@@ -80,15 +89,22 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         return -1;
     }
 
+    /**
+     *
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void addMapIDCast(Map<String, Person> map) {
         personMap.clear();
         personMap.putAll(map);
     }
 
+    /**
+     * Kiểm tra xem có chứa diễn viên không
+     */
     public boolean containsCast(Cast cast) {
         return personMap.containsKey(cast.getId());
     }
+
 
     @NonNull
     @Override
@@ -100,8 +116,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Cast cast = casts.get(position);
-        holder.binding.setItem(cast);
-        holder.setCast(cast);
+        holder.binData(cast);
     }
 
     @Override
@@ -110,29 +125,35 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
     }
 
 
+    /**
+     * Lấy danh cách các diễn viên trả về từ API
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void getCastsFromAPI() {
         casts.clear();
         notifyDataSetChanged();
         for (String key : personMap.keySet()) {
             Person person = personMap.get(key);
-            APIGetData.apiGetData.getCastDetails(person.getId()).enqueue(new Callback<Cast>() {
+            APIGetData.apiGetData.getCastDetails(Objects.requireNonNull(person).getId()).enqueue(new Callback<Cast>() {
                 @Override
-                public void onResponse(Call<Cast> call, Response<Cast> response) {
+                public void onResponse(@NonNull Call<Cast> call, @NonNull Response<Cast> response) {
                     int size = getItemCount();
                     casts.add(size, response.body());
                     notifyItemInserted(size);
                 }
 
                 @Override
-                public void onFailure(Call<Cast> call, Throwable t) {
+                public void onFailure(@NonNull Call<Cast> call, @NonNull Throwable t) {
 
                 }
             });
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    /**
+     * ViewHolder
+     */
+    protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ItemCastLayoutBinding binding;
         ICastItemClickListener iCastItemClickListener;
         Cast cast;
@@ -144,8 +165,9 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             binding.getRoot().setOnClickListener(this);
         }
 
-        public void setCast(Cast cast) {
+        public void binData(Cast cast) {
             this.cast = cast;
+            binding.setItem(cast);
         }
 
         @Override

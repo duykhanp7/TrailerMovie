@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="com.example.movies.activity.loginorsignup.LoginOrSignUpActivity" />
+        <import type="com.example.movies.ui.activity.loginorsignup.LoginOrSignUpActivity" />
     </data>
 
     <LinearLayout
@@ -267,8 +267,8 @@
                         android:layout_weight="1"
                         android:buttonTint="#FF9800"
                         android:gravity="center_vertical"
-                        android:textColor="@color/text_login_signup_color"
                         android:text="@string/term_and_policy"
+                        android:textColor="@color/text_login_signup_color"
                         android:textSize="@dimen/_10sdp" />
 
 
@@ -324,8 +324,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/log_in"
                             android:textColor="#FF9800"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11sdp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

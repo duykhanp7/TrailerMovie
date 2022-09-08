@@ -13,45 +13,44 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.movies.R;
 import com.example.movies.databinding.ItemCrewDetailsLayoutBinding;
 import com.example.movies.listener.crew.ICrewItemClickListener;
-import com.example.movies.model.crew.Crew;
+import com.example.movies.data.model.crew.Crew;
+import com.example.movies.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Adapter chi tiết các đạo diễn, nhà sản xuất....
+ */
 public class CrewDetailsAdapter extends RecyclerView.Adapter<CrewDetailsAdapter.ViewHolder> {
 
     List<Crew> crews;
     ICrewItemClickListener iCrewItemClickListener;
 
-    public CrewDetailsAdapter(ICrewItemClickListener iCrewItemClickListener){
+    public CrewDetailsAdapter(ICrewItemClickListener iCrewItemClickListener) {
         crews = new ArrayList<>();
         this.iCrewItemClickListener = iCrewItemClickListener;
     }
 
-    public void setCrews(List<Crew> crews){this.crews = crews;}
+    /**
+     * Thêm danh sách các đạo diễn, nhà sản xuất
+     */
+    public void setCrews(List<Crew> crews) {
+        this.crews = crews;
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemCrewDetailsLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_crew_details_layout,parent,false);
+        ItemCrewDetailsLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_crew_details_layout, parent, false);
         return new ViewHolder(binding, iCrewItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Crew crew = crews.get(position);
-        holder.binding.setItem(crew);
-        holder.setCrew(crew);
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO){
-            holder.binding.layoutCrew.setBackground(ContextCompat.getDrawable(holder.binding.getRoot().getContext(),R.color.white));
-            holder.binding.textTitleRole.setTextColor(ContextCompat.getColorStateList(holder.binding.getRoot().getContext(),R.color.black));
-            holder.binding.textTitleRole2.setTextColor(ContextCompat.getColorStateList(holder.binding.getRoot().getContext(),R.color.black));
-        }
-        else if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            holder.binding.layoutCrew.setBackground(ContextCompat.getDrawable(holder.binding.getRoot().getContext(),R.color.black));
-            holder.binding.textTitleRole.setTextColor(ContextCompat.getColorStateList(holder.binding.getRoot().getContext(),R.color.white));
-            holder.binding.textTitleRole2.setTextColor(ContextCompat.getColorStateList(holder.binding.getRoot().getContext(),R.color.white));
-        }
+        holder.bindData(crew);
     }
 
     @Override
@@ -59,10 +58,11 @@ public class CrewDetailsAdapter extends RecyclerView.Adapter<CrewDetailsAdapter.
         return crews.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ItemCrewDetailsLayoutBinding binding;
         Crew crew;
         ICrewItemClickListener iCrewItemClickListener;
+
         public ViewHolder(@NonNull ItemCrewDetailsLayoutBinding binding, ICrewItemClickListener iCrewItemClickListener) {
             super(binding.getRoot());
             this.binding = binding;
@@ -70,7 +70,26 @@ public class CrewDetailsAdapter extends RecyclerView.Adapter<CrewDetailsAdapter.
             binding.getRoot().setOnClickListener(this);
         }
 
-        public void setCrew(Crew crew){this.crew = crew;}
+        public void bindData(Crew crew) {
+            this.crew = crew;
+            binding.setItem(crew);
+            setUpUI();
+        }
+        
+        /**
+         * Chỉnh sửa giao diện dựa theo người dùng chọn chế độ nền tối hay nền sáng*/
+        public void setUpUI(){
+            if(ThemeUtils.getCurrentTheme() == AppCompatDelegate.MODE_NIGHT_NO){
+                binding.layoutCrew.setBackground(ContextCompat.getDrawable(binding.getRoot().getContext(),R.color.white));
+                binding.textTitleRole.setTextColor(ContextCompat.getColorStateList(binding.getRoot().getContext(),R.color.black));
+                binding.textTitleRole2.setTextColor(ContextCompat.getColorStateList(binding.getRoot().getContext(),R.color.black));
+            }
+            else if(ThemeUtils.getCurrentTheme() == AppCompatDelegate.MODE_NIGHT_YES){
+                binding.layoutCrew.setBackground(ContextCompat.getDrawable(binding.getRoot().getContext(),R.color.black));
+                binding.textTitleRole.setTextColor(ContextCompat.getColorStateList(binding.getRoot().getContext(),R.color.white));
+                binding.textTitleRole2.setTextColor(ContextCompat.getColorStateList(binding.getRoot().getContext(),R.color.white));
+            }
+        }
 
         @Override
         public void onClick(View view) {

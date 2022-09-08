@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="com.example.movies.model.users.UserProfile" />
+            type="com.example.movies.data.model.users.UserProfile" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,99 +20,180 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/_50sdp"
-                android:paddingBottom="@dimen/_50sdp">
+                android:layout_height="match_parent">
 
+                <!--Layout shimmer-->
                 <LinearLayout
-                    android:id="@+id/buttonChangeImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:id="@+id/layoutProfileShimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_50sdp"
+                    android:paddingBottom="@dimen/_50sdp">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/circleImageView"
-                        imagePersonal="@{user.pathImage}"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_90sdp"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        bind:civ_border_color="#FF7E00"
-                        bind:civ_border_width="@dimen/_1sdp" />
-
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:src="@drawable/ic_pencil" />
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="@dimen/_90sdp"
+                            android:layout_height="@dimen/_90sdp"
+                            android:src="@drawable/background_shimmer_circle"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_30sdp"
+                        android:paddingRight="@dimen/_30sdp">
+
+                        <TextView
+                            android:background="@color/brown_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:gravity="start|center_vertical"
+                            android:textColor="@color/text_profile"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_30sdp"
+                        android:paddingRight="@dimen/_30sdp"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:gravity="start|center_vertical"
+                            android:textColor="@color/text_profile"
+                            android:textSize="@dimen/_15sdp"
+                            android:background="@color/brown_light"
+                            />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <!--Layout not shimmer-->
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="@dimen/_50sdp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_30sdp"
-                    android:weightSum="4">
+                    android:layout_height="match_parent"
+                    android:background="@color/background"
+                    android:gravity="center"
+                    android:id="@+id/layoutProfileNotShimmer"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_50sdp"
+                    android:paddingBottom="@dimen/_50sdp">
 
-                    <TextView
-                        firstName="@{user.firstName}"
-                        lastName="@{user.lastName}"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/text_profile"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <ImageView
-                        android:id="@+id/buttonChangeDisplayName"
+                    <LinearLayout
+                        android:id="@+id/buttonChangeImage"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_pencil" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/circleImageView"
+                            imagePersonal="@{user.pathImage}"
+                            android:layout_width="@dimen/_90sdp"
+                            android:layout_height="@dimen/_90sdp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            bind:civ_border_color="#FF7E00"
+                            bind:civ_border_width="@dimen/_1sdp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:src="@drawable/ic_pencil" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_30sdp"
+                        android:weightSum="4">
+
+                        <TextView
+                            firstName="@{user.firstName}"
+                            lastName="@{user.lastName}"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_weight="3"
+                            android:gravity="start|center_vertical"
+                            android:textColor="@color/text_profile"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <ImageView
+                            android:id="@+id/buttonChangeDisplayName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_pencil" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_30sdp"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_weight="3"
+                            android:gravity="start|center_vertical"
+                            android:textColor="@color/text_profile"
+                            android:textSize="@dimen/_15sdp"
+                            bind:birthdate="@{user.birthdate}" />
+
+                        <ImageView
+                            android:id="@+id/buttonChangeBirthdate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_pencil" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+            </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_30sdp"
-                    android:weightSum="4">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/text_profile"
-                        android:textSize="@dimen/_15sdp"
-                        bind:birthdate="@{user.birthdate}" />
-
-                    <ImageView
-                        android:id="@+id/buttonChangeBirthdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_pencil" />
-
-                </LinearLayout>
-
-            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 

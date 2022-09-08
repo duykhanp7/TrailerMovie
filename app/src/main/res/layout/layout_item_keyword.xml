@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="keyword"
+            type="com.example.movies.data.model.keyword.Keyword" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.Chip
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:textSize="@dimen/_12sdp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_goneMarginStart="@dimen/_5sdp"
+            app:closeIconEnabled="true"
+            android:id="@+id/chipKeyword"
+            android:text="@{keyword.keyword}"
+            android:tooltipText='@{keyword.keyword.concat("-").concat(keyword.type)}'
+            tools:text="The Bat Man"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

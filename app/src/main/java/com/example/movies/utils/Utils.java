@@ -85,6 +85,7 @@ public class Utils {
     public static final String httpFacebook = "https://www.facebook.com/";
     public static final String httpInstagram = "https://www.instagram.com/";
     public static final String httpTwitter = "https://twitter.com/";
+    public static final String httpYoutube = "https://www.youtube.com/watch?v=";
     //TYPE : CAST OR CREW
     public static final String TYPE_CAST = "0";
     public static final String TYPE_CREW = "1";
@@ -135,4 +136,18 @@ public class Utils {
     public static final String GOOGLE_PROVIDER = "google.com";
     public static final String FACEBOOK_PROVIDER = "facebook.com";
     public static final String PASSWORD_PROVIDER = "password";
+    //User
+    public static final String USERNAME = "username";
+    public static final String USER_PASSWORD = "password";
+    public static final String rememberMe = "rememberMe";
+    //Comment
+    public static final String COMMENT_FOLDER = "CommentFolder";
+    //Keyword
+    public static final String KEYWORD_FOLDER = "KeywordFolder";
+    //Language key
+    public static final String LANGUAGE_KEY = "language";
+    //Setting database name
+    public static final String SETTING_DATABASE_NAME = "setting.db";
+    public static final String SETTING_TABLE_NAME = "setting_table";
+    public static final String KEYWORD_TABLE_NAME = "keyword_table";
 }

@@ -4,10 +4,10 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_corner_top"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/_30sdp">
 
         <androidx.core.widget.NestedScrollView
@@ -17,42 +17,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="@dimen/_18sdp"
-                    android:text="@string/select_date"
-                    android:textColor="#FF9800"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:textStyle="bold"/>
+                    android:gravity="center"
+                    android:text="@string/select_date"
+                    android:textColor="#FF9800"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="bold" />
 
                 <DatePicker
+                    android:id="@+id/birthDatePicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:spinnersShown="true"
+                    android:background="#FF9800"
                     android:calendarViewShown="false"
                     android:datePickerMode="spinner"
-                    android:background="#FF9800"
-                    android:id="@+id/birthDatePicker"/>
-
+                    android:spinnersShown="true" />
 
 
                 <TextView
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:id="@+id/buttonSelectDate"
                     android:layout_width="@dimen/_150sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:background="@drawable/background_corner_button_log_in"
                     android:gravity="center"
-                    android:text="@string/select_date_oke"
-                    android:id="@+id/buttonSelectDate"
-                    android:background="@drawable/background_corner_button_log_in"/>
-
+                    android:text="@string/select_date_oke" />
 
 
             </LinearLayout>

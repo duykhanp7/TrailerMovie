@@ -1,7 +1,6 @@
 package com.example.movies.adapter.crew;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,11 @@ import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movies.R;
-import com.example.movies.api.APIGetData;
+import com.example.movies.data.api.APIGetData;
 import com.example.movies.databinding.ItemCrewLayoutBinding;
 import com.example.movies.listener.crew.ICrewItemClickListener;
-import com.example.movies.model.anothers.Person;
-import com.example.movies.model.cast.Cast;
-import com.example.movies.model.crew.Crew;
+import com.example.movies.data.model.anothers.Person;
+import com.example.movies.data.model.crew.Crew;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
@@ -29,6 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Adapter đạo diễn, nhà sản xuất....
+ */
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 
     public List<Crew> crews;
@@ -36,37 +37,48 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
     public static ObservableField<List<Crew>> crewObservable = new ObservableField<>();
     ICrewItemClickListener iCrewItemClickListener;
 
-    public CrewAdapter(ICrewItemClickListener iCrewItemClickListener){
+    public CrewAdapter(ICrewItemClickListener iCrewItemClickListener) {
         crews = new ArrayList<>();
         personMap = new HashMap<>();
         crewObservable.set(crews);
         this.iCrewItemClickListener = iCrewItemClickListener;
     }
 
+    /**
+     * Thêm danh sách các đạo diễn, nhà sản xuất....
+     */
     @SuppressLint("NotifyDataSetChanged")
-    public void setCrews(List<Crew> crews){
+    public void setCrews(List<Crew> crews) {
         this.crews = crews;
         crewObservable.set(crews);
-        //notifyDataSetChanged();
     }
 
-    public void addCrew(Crew crew){
+    /**
+     * Thêm đạo diễn, nhà sản xuất....
+     */
+    public void addCrew(Crew crew) {
         int size = crews.size();
-        crews.add(size,crew);
-        personMap.put(crew.getId(),new Person(crew.getId(), Utils.TYPE_CAST));
+        crews.add(size, crew);
+        personMap.put(crew.getId(), new Person(crew.getId(), Utils.TYPE_CAST));
         notifyItemInserted(size);
     }
 
-    public void removeCrew(Crew crew){
+    /**
+     * Xóa đạo diễn...
+     */
+    public void removeCrew(Crew crew) {
         int positionItemRemove = getPositionCrew(crew);
         this.crews.remove(positionItemRemove);
         this.personMap.remove(crew.getId());
         this.notifyItemRemoved(positionItemRemove);
     }
 
-    private int getPositionCrew(Crew crew){
+    /**
+     * Trả về vị trí của đạo diễn, nhà sản xuất....
+     */
+    private int getPositionCrew(Crew crew) {
         for (int i = 0; i < crews.size(); i++) {
-            if(crews.get(i).getId().equals(crew.getId())){
+            if (crews.get(i).getId().equals(crew.getId())) {
                 return i;
             }
         }
@@ -74,27 +86,33 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void addMapIDCrew(Map<String, Person> map){
+    public void addMapIDCrew(Map<String, Person> map) {
         personMap.clear();
         personMap.putAll(map);
 
     }
 
-    public boolean containsCrew(Crew crew){
+    /**
+     * Kiểm tra xem có chứa đạo diễn, nhà sản xuất nào đó hay không
+     */
+    public boolean containsCrew(Crew crew) {
         return personMap.containsKey(crew.getId());
     }
 
+    /**
+     * Lấy danh cách các đạo diễn, nhà sản xuất... từ API
+     */
     @SuppressLint("NotifyDataSetChanged")
-    public void getCrewsFromAPI(){
+    public void getCrewsFromAPI() {
         crews.clear();
         notifyDataSetChanged();
-        for(String key : personMap.keySet()){
+        for (String key : personMap.keySet()) {
             Person person = personMap.get(key);
             APIGetData.apiGetData.getCrewDetails(person.getId()).enqueue(new Callback<Crew>() {
                 @Override
                 public void onResponse(Call<Crew> call, Response<Crew> response) {
                     int size = getItemCount();
-                    crews.add(size,response.body());
+                    crews.add(size, response.body());
                     notifyItemInserted(size);
                 }
 
@@ -109,15 +127,14 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemCrewLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_crew_layout,parent,false);
+        ItemCrewLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_crew_layout, parent, false);
         return new ViewHolder(binding, iCrewItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Crew crew = crews.get(position);
-        holder.binding.setItem(crew);
-        holder.setCrew(crew);
+        holder.bindData(crew);
     }
 
     @Override
@@ -137,8 +154,10 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
             binding.getRoot().setOnClickListener(this);
         }
 
-        public void setCrew(Crew crew){
-            this.crew = crew;}
+        public void bindData(Crew crew) {
+            this.crew = crew;
+            binding.setItem(crew);
+        }
 
         @Override
         public void onClick(View view) {

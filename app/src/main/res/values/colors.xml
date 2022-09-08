@@ -22,4 +22,10 @@
     <color name="text_profile">#FF000000</color>
     <color name="view_divider">#FF000000</color>
     <color name="status_bar_show_bottom_sheet_movie">#4B383E</color>
+
+    <color name="blue">#4E67F1</color>
+    <color name="red">#ED4C4C</color>
+    <color name="yellow">#F1B357</color>
+    <color name="orange">#E45224</color>
+
 </resources>

@@ -12,10 +12,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movies.R;
-import com.example.movies.api.APIGetData;
+import com.example.movies.data.api.APIGetData;
 import com.example.movies.databinding.LayoutItemFilmBinding;
 import com.example.movies.listener.movie.IMovieItemClickListener;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.movie.MovieObject;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
@@ -26,6 +26,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+/**
+ * Adapter tìm kiếm phim
+ */
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.ViewHolder> {
 
     public List<MovieObject.Movie> moviesSearch;
@@ -67,8 +71,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MovieObject.Movie movie = moviesSearch.get(position);
-        holder.binding.setItemFilm(movie);
-        holder.setMovie(movie);
+        holder.bindData(movie);
         if (position == moviesSearch.size() - 3) {
             APIGetData.apiGetData.getMovieByKeyword(typeMovieOrTVShow, keyword, String.valueOf(++page)).enqueue(new Callback<MovieObject>() {
                 @SuppressLint("NotifyDataSetChanged")
@@ -89,14 +92,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
                 }
             });
         }
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                holder.binding.shimmerLayoutMovie.post(() -> holder.binding.shimmerLayoutMovie.setVisibility(View.GONE));
-                holder.binding.layoutMovieNotShimmer.post(() -> holder.binding.layoutMovieNotShimmer.setVisibility(View.VISIBLE));
-            }
-        }, 500);
-        holder.setIsRecyclable(false);
+        //holder.setIsRecyclable(false);
     }
 
     @Override
@@ -104,7 +100,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         return moviesSearch.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LayoutItemFilmBinding binding;
         MovieObject.Movie movie;
         IMovieItemClickListener iMovieItemClickListener;
@@ -116,8 +112,17 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
             itemView.getRoot().setOnClickListener(this);
         }
 
-        public void setMovie(MovieObject.Movie movie) {
+        public void bindData(MovieObject.Movie movie) {
             this.movie = movie;
+            binding.setItemFilm(movie);
+
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    binding.shimmerLayoutMovie.post(() -> binding.shimmerLayoutMovie.setVisibility(View.GONE));
+                    binding.layoutMovieNotShimmer.post(() -> binding.layoutMovieNotShimmer.setVisibility(View.VISIBLE));
+                }
+            }, 500);
         }
 
         @Override

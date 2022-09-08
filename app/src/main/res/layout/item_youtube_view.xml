@@ -1,58 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:bind="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="item"
-            type="com.example.movies.model.videos.TrailerObject.Trailer" />
-        <import type="android.view.View"/>
+            type="com.example.movies.data.model.videos.TrailerObject.Trailer" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
+        android:id="@+id/videoMainLayout"
+        style="@style/LayoutRippleEffect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="@dimen/_3sdp"
         android:layout_marginBottom="@dimen/_15sdp"
-        android:gravity="center"
         android:background="@color/background"
-        android:id="@+id/videoMainLayout">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.name}"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:paddingStart="@dimen/_20sdp"
             android:paddingTop="@dimen/_15sdp"
             android:paddingEnd="@dimen/_30sdp"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:paddingBottom="@dimen/_5sdp"
-            android:textStyle="bold"
+            android:text="@{item.name}"
             android:textAlignment="center"
-            android:textSize="@dimen/_13sdp"
             android:textColor="#FF9800"
-            android:visibility="@{item.key == null ? View.INVISIBLE:View.VISIBLE}"/>
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            android:visibility="@{item.key == null ? View.INVISIBLE:View.VISIBLE}" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
-            app:cardCornerRadius="@dimen/_3sdp"
+            android:layout_gravity="center"
             app:cardBackgroundColor="@color/background"
-            android:layout_gravity="center">
+            app:cardCornerRadius="@dimen/_3sdp">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_220sdp"
-                android:id="@+id/imageViewThumbnail"
-                getThumbnail="@{item.key}"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:contentDescription="TODO" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageViewThumbnail"
+                    style="@style/LayoutRippleEffect"
+                    getThumbnail="@{item.key}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="TODO"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/imageYoutube"
+                    style="@style/LayoutRippleEffect"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:background="@drawable/youtube" />
+
+
+            </FrameLayout>
 
         </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_10sdp">
+
+            <!--Layout show count like, comment, share-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    style="@style/LayoutRippleEffect"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textCountComments"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:gravity="center"
+                                android:text="@string/_0_comment"
+                                android:textSize="13sp"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutReaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/background_corner_white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/reactionLike"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_like" />
+
+                    <ImageView
+                        android:id="@+id/reactionLove"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_love" />
+
+                    <ImageView
+                        android:id="@+id/reactionLoveLove"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_lovelove" />
+
+                    <ImageView
+                        android:id="@+id/reactionHaha"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_haha" />
+
+                    <ImageView
+                        android:id="@+id/reactionWow"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_wow" />
+
+                    <ImageView
+                        android:id="@+id/reactionSad"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_sad" />
+
+                    <ImageView
+                        android:id="@+id/reactionAngry"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/ic_angry" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/brown_light" />
+
+            <!--Layout show button like, comment, share-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:id="@+id/buttonComments"
+                    style="@style/LayoutRippleEffect"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_item_settings_clicked"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/comment"
+                        app:tint="@color/brown_light" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        android:gravity="center"
+                        android:text="@string/text_comments"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/buttonShares"
+                    style="@style/LayoutRippleEffect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_item_settings_clicked"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/share"
+                        app:tint="@color/brown_light" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        android:gravity="center"
+                        android:text="@string/text_shares"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>

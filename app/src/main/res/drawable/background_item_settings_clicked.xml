@@ -8,14 +8,12 @@
 
             <item android:drawable="@drawable/background_item_black">
 
-
-
             </item>
 
         </ripple>
 
     </item>
 
-<!--    <item android:drawable="@drawable/background_item_blur" android:state_pressed="true"/>-->
+    <!--    <item android:drawable="@drawable/background_item_blur" android:state_pressed="true"/>-->
 
 </selector>

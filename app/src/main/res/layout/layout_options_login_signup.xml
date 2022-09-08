@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="main"
-            type="com.example.movies.activity.loginorsignup.LoginOrSignUpActivity" />
+            type="com.example.movies.ui.activity.loginorsignup.LoginOrSignUpActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_30sdp"
-                        android:text="KhanTrailer"
+                        android:text="@string/app_name"
                         android:textColor="#FF9800"
                         android:textSize="@dimen/_20sdp"
                         android:textStyle="bold" />
@@ -118,6 +119,28 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                tools:text="@string/authorized_by_khandev_company"
+                android:textColor="#FF9800"
+                android:textSize="@dimen/_10sdp" />
+
+        </RelativeLayout>
+
 
 
         <!--SCREEN LOG IN-->

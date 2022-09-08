@@ -28,37 +28,43 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="s">
         <activity
-            android:name=".activity.details.UserProfileActivity"
+            android:name=".ui.activity.details.UserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.loginorsignup.LoginOrSignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.splash.SplashScreen"
+            android:name=".ui.activity.loginorsignup.LoginOrSignUpActivity"
             android:exported="true"
             android:noHistory="true">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.splash.SplashScreen"
+            android:exported="true"
+            android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
-            android:name=".activity.details.DetailsCharacterActivity"
+            android:name=".ui.activity.details.DetailsCharacterActivity"
             android:exported="false"
-            android:parentActivityName=".activity.details.DetailsMovieActivity" />
+            android:parentActivityName=".ui.activity.details.DetailsMovieActivity" />
         <activity
-            android:name=".activity.youtube.WatchTrailerActivity"
+            android:name=".ui.activity.youtube.WatchTrailerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:enabled="true"
             android:exported="false"
-            android:parentActivityName=".activity.details.DetailsMovieActivity" />
+            android:parentActivityName=".ui.activity.details.DetailsMovieActivity" />
         <activity
-            android:name=".activity.details.DetailsMovieActivity"
+            android:name=".ui.activity.details.DetailsMovieActivity"
             android:exported="false"
-            android:parentActivityName=".activity.main.MainActivity" />
+            android:parentActivityName=".ui.activity.main.MainActivity" />
         <activity
-            android:name=".activity.main.MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="false" />
 
         <meta-data

@@ -19,85 +19,128 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Spinner
+                    android:id="@+id/spinnerOthers"
+                    android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@color/background"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spinnerOthers"
-                        android:layout_width="@dimen/_200sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@color/background"
-                        android:gravity="center"
-                        android:popupBackground="@drawable/background_spinner_corner"
-                        android:textAlignment="center"
-                        android:theme="@style/mySpinnerItemStyle"
-                        android:visibility="visible" />
-
-                </LinearLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="@{positionType == 0 ? View.VISIBLE:View.GONE}" >
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerWatchRecentlyMovies"
-                            positionTypeOthers="@{positionType}"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clipToPadding="false"
-                            android:gravity="center"
-                            android:paddingBottom="@dimen/_90sdp"
-                            android:textColor="@color/white" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="@{positionType == 1 ? View.VISIBLE:View.GONE}">
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerKeywordSearchRecently"
-                            positionTypeOthers="@{positionType}"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:clipToPadding="false"
-                            android:gravity="center"
-                            android:paddingBottom="@dimen/_90sdp"
-                            android:textColor="@color/white"
-                            android:visibility="@{positionType == 1 ? View.VISIBLE:View.GONE}" />
-                    </RelativeLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:popupBackground="@drawable/background_spinner_corner"
+                    android:textAlignment="center"
+                    android:theme="@style/mySpinnerItemStyle"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/layoutRecyclerWatchRecently"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerWatchRecentlyMovies"
+                        positionTypeOthers="@{positionType}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:clipToPadding="false"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/_90sdp"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/layoutRecyclerKeyword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerKeywordSearchRecently"
+                        positionTypeOthers="@{positionType}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:clipToPadding="false"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/_90sdp"
+                        android:textColor="@color/white" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/layoutOtherEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_150sdp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageFavorite"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_110sdp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/favorites_ic_clicked" />
+
+                    <TextView
+                        android:id="@+id/textViewEmptyFavorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageFavorite"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:gravity="center"
+                        android:text="@string/empty_watch_recently_movies"
+                        android:textSize="@dimen/_15sdp" />
+
+                </RelativeLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>

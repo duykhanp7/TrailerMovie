@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.movies.R;
-import com.example.movies.model.anothers.ItemSpinner;
+import com.example.movies.data.model.anothers.ItemSpinner;
 
 import java.util.List;
 

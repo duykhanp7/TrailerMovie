@@ -6,23 +6,24 @@
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:cardBackgroundColor="@color/background"
-        app:cardElevation="0dp"
-        android:elevation="0dp"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:gravity="center|center_horizontal|center_vertical">
+        android:elevation="0dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/background"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/background_alert_confirm_log_out"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingTop="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_20sdp"
-            android:layout_gravity="center"
-            android:gravity="center">
+            android:paddingBottom="@dimen/_20sdp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,34 +36,34 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center"
-                android:layout_gravity="center"
+                android:orientation="horizontal"
                 android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp">
+                android:paddingEnd="@dimen/_10sdp"
+                android:weightSum="2">
 
                 <TextView
+                    android:id="@+id/buttonCancelLogOut"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_weight="0.5"
                     android:background="@drawable/background_corner_button_log_in"
                     android:gravity="center"
                     android:text="@string/cancel"
-                    android:textColor="@color/black"
-                    android:id="@+id/buttonCancelLogOut"/>
+                    android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/buttonSureLogout"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
                     android:layout_weight="0.5"
                     android:background="@drawable/background_corner_button_log_in"
                     android:gravity="center"
                     android:text="@string/sure"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="@dimen/_40sdp"
-                    android:id="@+id/buttonSureLogout"/>
+                    android:textColor="@color/black" />
 
 
             </LinearLayout>

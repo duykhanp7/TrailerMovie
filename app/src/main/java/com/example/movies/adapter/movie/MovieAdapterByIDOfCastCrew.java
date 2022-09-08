@@ -11,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.movies.R;
 import com.example.movies.databinding.LayoutItemFilmDetailsBinding;
 import com.example.movies.listener.movie.IMovieItemByCastCrewIDClickListener;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.movie.MovieObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter phim dựa trên id của diễn viên , đạo diễn
+ */
 public class MovieAdapterByIDOfCastCrew extends RecyclerView.Adapter<MovieAdapterByIDOfCastCrew.ViewHolder> {
 
     List<MovieObject.Movie> moviesByCastOrCrewID;
     IMovieItemByCastCrewIDClickListener iMovieItemByCastCrewIDClickListener;
 
-    public MovieAdapterByIDOfCastCrew(List<MovieObject.Movie> movies, IMovieItemByCastCrewIDClickListener iMovieItemByCastCrewIDClickListener){
+    public MovieAdapterByIDOfCastCrew(List<MovieObject.Movie> movies, IMovieItemByCastCrewIDClickListener iMovieItemByCastCrewIDClickListener) {
         moviesByCastOrCrewID = new ArrayList<>();
         this.moviesByCastOrCrewID = movies;
         this.iMovieItemByCastCrewIDClickListener = iMovieItemByCastCrewIDClickListener;
@@ -31,15 +34,14 @@ public class MovieAdapterByIDOfCastCrew extends RecyclerView.Adapter<MovieAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutItemFilmDetailsBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_item_film_details,parent,false);
+        LayoutItemFilmDetailsBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_item_film_details, parent, false);
         return new ViewHolder(binding, iMovieItemByCastCrewIDClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MovieObject.Movie movie = moviesByCastOrCrewID.get(position);
-        holder.binding.setItem(movie);
-        holder.setMovie(movie);
+        holder.bindData(movie);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class MovieAdapterByIDOfCastCrew extends RecyclerView.Adapter<MovieAdapte
         return moviesByCastOrCrewID.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LayoutItemFilmDetailsBinding binding;
         MovieObject.Movie movie;
         IMovieItemByCastCrewIDClickListener iMovieItemByCastCrewIDClickListener;
@@ -59,8 +61,9 @@ public class MovieAdapterByIDOfCastCrew extends RecyclerView.Adapter<MovieAdapte
             binding.getRoot().setOnClickListener(this);
         }
 
-        public void setMovie(MovieObject.Movie movie){
+        public void bindData(MovieObject.Movie movie) {
             this.movie = movie;
+            binding.setItem(movie);
         }
 
         @Override

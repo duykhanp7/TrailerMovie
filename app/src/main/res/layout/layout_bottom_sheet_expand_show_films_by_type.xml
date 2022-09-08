@@ -5,13 +5,16 @@
 
 
     <data>
+
         <variable
             name="isSearching"
             type="Boolean" />
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layoutMainShowMoviesByType"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,18 +52,18 @@
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="center"
                     android:layout_weight="4"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:weightSum="4">
 
                     <RelativeLayout
+                        android:id="@+id/layoutTextViewGenre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        tools:ignore="NestedWeights"
                         android:gravity="center"
-                        android:id="@+id/layoutTextViewGenre"
-                        android:visibility="@{isSearching ? View.GONE : View.VISIBLE}">
+                        android:visibility="@{isSearching ? View.GONE : View.VISIBLE}"
+                        tools:ignore="NestedWeights">
 
                         <TextView
                             android:id="@+id/textViewMovieGenres"
@@ -75,12 +78,12 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/layoutSearchView"
                         android:layout_width="@dimen/_150sdp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        tools:visibility="gone"
-                        android:id="@+id/layoutSearchView"
-                        android:visibility="@{isSearching ? View.VISIBLE : View.GONE}">
+                        android:visibility="@{isSearching ? View.VISIBLE : View.GONE}"
+                        tools:visibility="gone">
 
                         <androidx.appcompat.widget.SearchView
                             android:id="@+id/searchView"
@@ -99,10 +102,10 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/layoutIconSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/layoutIconSearch"
                         android:gravity="end"
                         android:visibility="@{isSearching ? View.GONE : View.VISIBLE}">
 
@@ -142,6 +145,6 @@
         </LinearLayout>
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

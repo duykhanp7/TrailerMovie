@@ -6,9 +6,10 @@
 
 
     <data>
+
         <variable
             name="main"
-            type="com.example.movies.activity.main.MainActivity" />
+            type="com.example.movies.ui.activity.main.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,18 +17,19 @@
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
             android:id="@+id/nestedScrollViewTVShow"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTVShow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:gravity="center"
                 android:paddingBottom="@dimen/_60sdp"
-                bind:setAdapter="@{main.parentAdapterTVShowObservableField}"
                 android:textColor="@color/white"
-                android:gravity="center"/>
+                bind:setAdapter="@{main.parentAdapterTVShowObservableField}" />
         </androidx.core.widget.NestedScrollView>
 
 

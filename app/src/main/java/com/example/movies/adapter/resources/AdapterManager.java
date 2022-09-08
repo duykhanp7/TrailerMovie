@@ -2,18 +2,17 @@ package com.example.movies.adapter.resources;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
 import com.example.movies.adapter.movie.MoviesAdapterByGenres;
-import com.example.movies.api.APIGetData;
+import com.example.movies.data.api.APIGetData;
 import com.example.movies.listener.movie.IMovieItemClickListener;
 import com.example.movies.listener.update.IOnRefreshData;
 import com.example.movies.listener.update.IUpdateAdapter;
-import com.example.movies.model.genres.GenreObject;
-import com.example.movies.model.movie.MovieObject;
+import com.example.movies.data.model.genres.GenreObject;
+import com.example.movies.data.model.movie.MovieObject;
 import com.example.movies.utils.Utils;
 
 import java.util.ArrayList;
@@ -26,24 +25,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+/**
+ * Quản lý các adapter của danh sách phim của các thể loại phim
+ */
 public class AdapterManager {
 
-    //PROPERTIES
-    //TYPE MOVIE OR TV SHOW
+    //Loại chương trình
     public String typeMovieOrTVShow;
-    //MAP MOVIE ADAPTER
+    //Map danh sách các adapter
     public Map<String, ObservableField<MoviesAdapterByGenres>> mapListMoviesObservableFieldAdapter;
-    //GENRES OBJECT
     public List<String> GenresMovie;
+    //Listener
     IMovieItemClickListener itemClickListener;
     IUpdateAdapter iUpdateAdapter;
     IOnRefreshData iOnRefreshData;
 
     public AdapterManager(String type, IMovieItemClickListener itemClickListenerTemp, IUpdateAdapter iUpdateAdapterTemp, IOnRefreshData iOnRefreshDataTemp) {
         this.typeMovieOrTVShow = type;
-        //MAP MOVIE ADAPTER
         mapListMoviesObservableFieldAdapter = new HashMap<>();
-        //GENRES MOVIE
         GenresMovie = new ArrayList<>();
         this.itemClickListener = itemClickListenerTemp;
         this.iUpdateAdapter = iUpdateAdapterTemp;
@@ -52,19 +52,25 @@ public class AdapterManager {
     }
 
 
+    /**
+     * Update thông tin của bộ nằm có nằm trong danh sách các thể loại phim khác nhau
+     */
     public void updateMovieInAllGenres(MovieObject.Movie item) {
         new Thread(() -> {
             for (ObservableField<MoviesAdapterByGenres> adapter : mapListMoviesObservableFieldAdapter.values()) {
-                for (MovieObject.Movie a : Objects.requireNonNull(adapter.get()).getMovieList()) {
-                    if (a.getId().trim().equals(item.getId().trim())) {
-                        a.setMovie(item);
-                        break;
-                    }
-                }
+//                for (MovieObject.Movie a : Objects.requireNonNull(adapter.get()).getMovieList()) {
+//                    if (a.getId().trim().equals(item.getId().trim())) {
+//                        a.setMovie(item);
+//                        break;
+//                    }
+//                }
+                Objects.requireNonNull(adapter.get()).updateItem(item);
             }
         }).start();
     }
 
+    /**
+     * Load lại data*/
     public void onRefreshData() {
         int pos = 0;
         for (ObservableField<MoviesAdapterByGenres> item : mapListMoviesObservableFieldAdapter.values()) {
@@ -79,6 +85,8 @@ public class AdapterManager {
         }, 1000);
     }
 
+    /**
+     * Load các thể loại phim và chương trình tv*/
     private synchronized void getMovieOrTVShowGenres(String type) {
         //THREAD GET MOVIE GENRES
         APIGetData.apiGetData.getMovieGenres(type, Utils.API_MOVIE_KEY).enqueue(new Callback<GenreObject>() {
