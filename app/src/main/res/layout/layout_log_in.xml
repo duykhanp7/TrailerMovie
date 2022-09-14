@@ -181,6 +181,7 @@
                         android:layout_gravity="end"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:id="@+id/buttonForgotPassword"
                         android:text="@string/forgot_password"
                         android:textColor="#FF9800"
                         android:textSize="@dimen/_11sdp" />

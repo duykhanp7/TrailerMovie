@@ -29,6 +29,7 @@ import com.example.movies.R;
 import com.example.movies.data.firebase.FirebaseObjectCommentManager;
 import com.example.movies.data.model.comment.Comment;
 import com.example.movies.data.model.reaction.Reaction;
+import com.example.movies.data.model.users.UserProfile;
 import com.example.movies.listener.videos.IOnActionShare;
 import com.example.movies.ui.activity.main.MainActivity;
 import com.example.movies.databinding.ItemYoutubeViewBinding;
@@ -60,7 +61,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
     IOnActionShare iOnActionShare;
     Context context;
 
-    public VideosAdapter(Context contextA,ITrailerItemClickListener iTrailerItemClickListener, MovieObject.Movie a, FragmentManager fragmentManagerA, IOnActionShare i) {
+    public VideosAdapter(Context contextA, ITrailerItemClickListener iTrailerItemClickListener, MovieObject.Movie a, FragmentManager fragmentManagerA, IOnActionShare i) {
         trailers = new ArrayList<>();
         this.iTrailerItemClickListener = iTrailerItemClickListener;
         this.movie = a;
@@ -113,9 +114,8 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
                 Log.i("AAAA", "ADD COMMENT TRUEEEEEEEEEEEEEEEE");
                 if (bottomSheetComment != null) {
                     bottomSheetComment.addCommentToRecyclerView(a);
-                } else {
-                    Objects.requireNonNull(trailer.getListComments().get()).add(a);
                 }
+                Objects.requireNonNull(trailer.getListComments().get()).add(a);
                 Objects.requireNonNull(mapViewHolders.get(String.valueOf(trailer.getId()))).binding.textCountComments.post(new Runnable() {
                     @Override
                     public void run() {
@@ -136,13 +136,30 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
                     if (x.getId().equals(a.getId())) {
                         if (bottomSheetComment != null) {
                             bottomSheetComment.updateCommentToRecyclerView(a);
-                        } else {
-                            Objects.requireNonNull(trailer.getListComments().get()).set(i, a);
                         }
+                        Objects.requireNonNull(trailer.getListComments().get()).set(i, a);
                         break;
                     }
                 }
 
+            }
+        }
+    }
+
+    public void updateImageProfileCommentInTrailer(UserProfile userProfile) {
+        String uid = userProfile.getUid();
+        String pathImage = userProfile.getPathImage();
+
+        for (TrailerObject.Trailer trailer : trailers) {
+            if(Objects.requireNonNull(trailer.getListComments().get()).size() > 0){
+                for (Comment comment : Objects.requireNonNull(trailer.getListComments().get())){
+                    if (comment.getUserId().equals(uid)) {
+                        if (bottomSheetComment != null) {
+                            bottomSheetComment.updateImageProfileCommentToRecyclerView(userProfile);
+                        }
+                        comment.setPathImage(pathImage);
+                    }
+                }
             }
         }
     }
@@ -154,11 +171,12 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
                 for (int i = 0; i < Objects.requireNonNull(trailer.getListComments().get()).size(); i++) {
                     Comment comment = Objects.requireNonNull(Objects.requireNonNull(trailer.getListComments().get()).get(i));
                     if (comment.getId().equals(a.getId())) {
+                        Log.i("AAA", "EQUAL");
                         if (bottomSheetComment != null) {
-                            bottomSheetComment.deleteCommentToRecyclerView(a, i);
-                        } else {
-                            Objects.requireNonNull(trailer.getListComments().get()).remove(i);
+                            Log.i("AAA", "BOTTOM SHEET DELETE : " + a.getTextComment());
+                            bottomSheetComment.deleteCommentToRecyclerView(a);
                         }
+                        Objects.requireNonNull(trailer.getListComments().get()).remove(i);
                         Objects.requireNonNull(mapViewHolders.get(String.valueOf(trailer.getId()))).binding.textCountComments.post(new Runnable() {
                             @Override
                             public void run() {
@@ -210,7 +228,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
                     binding.textCountComments.post(new Runnable() {
                         @Override
                         public void run() {
-                            binding.textCountComments.setText(String.valueOf(Objects.requireNonNull(trailer.getListComments().get()).size()).concat(" "+context.getResources().getString(R.string.comment)));
+                            binding.textCountComments.setText(String.valueOf(Objects.requireNonNull(trailer.getListComments().get()).size()).concat(" " + context.getResources().getString(R.string.comment)));
                         }
                     });
                 }
@@ -252,8 +270,8 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
                     Intent intentShare = new Intent();
                     intentShare.setAction(Intent.ACTION_SEND);
                     intentShare.setType("text/plain");
-                    intentShare.putExtra(Intent.EXTRA_TEXT,Utils.httpYoutube.concat(trailer.getKey()));
-                    intentShare = Intent.createChooser(intentShare,"Share "+trailer.getName());
+                    intentShare.putExtra(Intent.EXTRA_TEXT, Utils.httpYoutube.concat(trailer.getKey()));
+                    intentShare = Intent.createChooser(intentShare, "Share " + trailer.getName());
                     iOnActionShare.onActionShare(intentShare);
                 }
             });

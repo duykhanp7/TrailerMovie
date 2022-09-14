@@ -12,6 +12,7 @@
         android:gravity="center|center_horizontal|center_vertical"
         android:orientation="vertical"
         app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="@dimen/_7sdp"
         app:cardElevation="0dp">
 
         <LinearLayout

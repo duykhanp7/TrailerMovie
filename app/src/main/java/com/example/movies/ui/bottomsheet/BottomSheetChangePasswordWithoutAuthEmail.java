@@ -33,7 +33,7 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class BottomSheetChangePassword extends BottomSheetDialogFragment {
+public class BottomSheetChangePasswordWithoutAuthEmail extends BottomSheetDialogFragment {
 
     private BottomSheetChangePasswordBinding binding;
     private boolean isCurrentPasswordValid = false;
@@ -44,7 +44,7 @@ public class BottomSheetChangePassword extends BottomSheetDialogFragment {
     private String currentPasswordValid = "";
 
 
-    public BottomSheetChangePassword(Context contextTemp) {
+    public BottomSheetChangePasswordWithoutAuthEmail(Context contextTemp) {
         this.context = contextTemp;
         getPasswordOfCurrentUser();
     }

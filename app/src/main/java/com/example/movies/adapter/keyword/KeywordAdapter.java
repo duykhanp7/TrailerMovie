@@ -108,6 +108,7 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.ViewHold
                     MainActivity.showOrHideOtherLayoutEmpty();
                 }
             });
+
         }
     }
 

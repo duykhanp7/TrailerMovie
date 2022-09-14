@@ -1,10 +1,7 @@
 package com.example.movies.ui.bottomsheet;
 
 import static com.example.movies.ui.activity.details.DetailsMovieActivity.firebaseObjectCommentManager;
-import static com.example.movies.ui.activity.details.DetailsMovieActivity.mutableLiveDataAddComment;
 import static com.example.movies.ui.activity.details.DetailsMovieActivity.mutableLiveDataBottomSheetDismiss;
-import static com.example.movies.ui.activity.details.DetailsMovieActivity.mutableLiveDataDeleteComment;
-import static com.example.movies.ui.activity.details.DetailsMovieActivity.mutableLiveDataUpdateComment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -14,26 +11,26 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableField;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.movies.R;
 import com.example.movies.adapter.comment.CommentAdapter;
-import com.example.movies.data.firebase.FirebaseObjectCommentManager;
 import com.example.movies.data.model.comment.Comment;
+import com.example.movies.data.model.users.UserProfile;
 import com.example.movies.data.model.videos.TrailerObject;
 import com.example.movies.databinding.BottomSheetCommentBinding;
 import com.example.movies.helper.TimeUtils;
 import com.example.movies.data.model.movie.MovieObject;
+import com.example.movies.ui.activity.main.MainActivity;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -54,6 +51,7 @@ public class BottomSheetComment extends BottomSheetDialogFragment {
     private final TrailerObject.Trailer trailer;
     private final ObservableField<List<Comment>> listCommentsObservableField = new ObservableField<>();
     private final ObservableField<CommentAdapter> commentAdapterObservableField = new ObservableField<>();
+    private ArrayAdapter<String> arrayAdapter;
 
     public BottomSheetComment(MovieObject.Movie movie, TrailerObject.Trailer trailer, int height) {
         this.movie = movie;
@@ -83,7 +81,7 @@ public class BottomSheetComment extends BottomSheetDialogFragment {
 
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        bottomSheetBehavior.setDraggable(true);
+        bottomSheetBehavior.setDraggable(false);
 
         dialog.findViewById(R.id.bottomSheetComment).setMinimumHeight(heightScreen / 2);
         dialog.getWindow().getDecorView().setBackground(null);
@@ -91,47 +89,64 @@ public class BottomSheetComment extends BottomSheetDialogFragment {
         listCommentsObservableField.set(new ArrayList<>());
         listCommentsObservableField.set(trailer.getListComments().get());
 
-        commentAdapterObservableField.set(new CommentAdapter(movie, trailer, listCommentsObservableField.get()));
+        commentAdapterObservableField.set(new CommentAdapter(getContext(),movie, trailer, listCommentsObservableField.get()));
+        Objects.requireNonNull(commentAdapterObservableField.get()).setMode(0);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerViewComment.setHasFixedSize(true);
         binding.recyclerViewComment.setLayoutManager(layoutManager);
         binding.recyclerViewComment.setAdapter(commentAdapterObservableField.get());
 
+        initializedSpinner();
         bindClick();
 
         showLayoutNoComment();
 
     }
 
-    public void addCommentToRecyclerView(Comment a){
+    public void addCommentToRecyclerView(Comment a) {
         if (commentAdapterObservableField.get() != null) {
             Objects.requireNonNull(commentAdapterObservableField.get()).addNewComment(a);
         }
         showLayoutNoComment();
     }
 
-    public void updateCommentToRecyclerView(Comment a){
+    public void updateCommentToRecyclerView(Comment a) {
         if (commentAdapterObservableField.get() != null) {
             Objects.requireNonNull(commentAdapterObservableField.get()).updateComment(a);
         }
         showLayoutNoComment();
     }
 
-    public void deleteCommentToRecyclerView(Comment a,int i){
-        Objects.requireNonNull(commentAdapterObservableField.get()).deleteComment(a,i);
+    public void updateImageProfileCommentToRecyclerView(UserProfile userProfile) {
+        if (commentAdapterObservableField.get() != null) {
+            Objects.requireNonNull(commentAdapterObservableField.get()).updateImageProfileComment(userProfile);
+        }
+    }
+
+    public void deleteCommentToRecyclerView(Comment a) {
+        Log.i("AAA", "DELETE OVER");
+        Objects.requireNonNull(commentAdapterObservableField.get()).deleteComment(a);
         showLayoutNoComment();
     }
 
-    public void showLayoutNoComment(){
-        if(isNoComment()){
+    public void showLayoutNoComment() {
+        if (isNoComment()) {
             binding.layoutNoComment.setVisibility(View.VISIBLE);
             binding.recyclerViewComment.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             binding.layoutNoComment.setVisibility(View.GONE);
             binding.recyclerViewComment.setVisibility(View.VISIBLE);
         }
+    }
+
+
+    public void initializedSpinner() {
+        List<String> list = new ArrayList<>();
+        list.add("Latest");
+        list.add("All comments");
+        arrayAdapter = new ArrayAdapter<String>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list);
+        binding.itemSpinner.setAdapter(arrayAdapter);
     }
 
     public void bindClick() {
@@ -146,7 +161,14 @@ public class BottomSheetComment extends BottomSheetDialogFragment {
                 newComment.setTrailerID(String.valueOf(trailer.getId()));
                 String text = movie.getId().concat(trailer.getId()).concat(newComment.getTextComment().concat(newComment.getTimeComment()));
                 newComment.setId(getTextHex(text));
+                newComment.setUserId(MainActivity.userProfile.getUid());
                 firebaseObjectCommentManager.addComment(movie, trailer, newComment);
+                int mode = Objects.requireNonNull(commentAdapterObservableField.get()).getMode();
+                if (mode == 0) {
+                    binding.recyclerViewComment.smoothScrollToPosition(0);
+                } else {
+                    binding.recyclerViewComment.smoothScrollToPosition(Objects.requireNonNull(commentAdapterObservableField.get()).getListComments().size() - 1);
+                }
                 clearText();
             }
         });
@@ -156,6 +178,18 @@ public class BottomSheetComment extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 mutableLiveDataBottomSheetDismiss.postValue(true);
                 dismiss();
+            }
+        });
+
+        binding.itemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Objects.requireNonNull(commentAdapterObservableField.get()).setMode(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -189,7 +223,7 @@ public class BottomSheetComment extends BottomSheetDialogFragment {
                 .replace("/", "");
     }
 
-    public boolean isNoComment(){
+    public boolean isNoComment() {
         return Objects.requireNonNull(trailer.getListComments().get()).size() == 0;
     }
 

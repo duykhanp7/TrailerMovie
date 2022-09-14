@@ -173,5 +173,23 @@
     <string name="female">Female</string>
     <string name="no_overview">No overview yet</string>
     <string name="no_results_matches">No results matches</string>
+    <string name="next_version">It will be released in the next version</string>
+    <string name="edit_comment">Edit comment</string>
+    <string name="my_profile">My profile</string>
+    <string name="email_has_been_taken">This email has been taken</string>
+    <string name="create_acc_success">Create account successfully</string>
+    <string name="send_issues">Send issues</string>
+    <string name="show_detail_issues">Please show detailed issues for the developer</string>
+    <string name="issues">Issues</string>
+    <string name="send_dev_issues">Send dev issues</string>
+    <string name="code_">Code</string>
+    <string name="your_email_link_with_account">Your email link with account</string>
+    <string name="send_code">Send code</string>
+    <string name="submit_code">Submit code</string>
+    <string name="code_sent_to_email">Code has been sent to your email</string>
+    <string name="enter_email_link_account">Please enter the email link with your account</string>
+    <string name="waiting_check_email">Please waiting check your email</string>
+    <string name="email_not_reference_to_any_acc">This email does not refer to any account</string>
+    <string name="enter_code_sent">Please enter the code sent to your email</string>
 
 </resources>

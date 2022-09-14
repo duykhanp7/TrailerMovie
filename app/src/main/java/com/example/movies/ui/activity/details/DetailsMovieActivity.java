@@ -1,10 +1,12 @@
 package com.example.movies.ui.activity.details;
 
+import static com.example.movies.ui.activity.main.MainActivity.chipTextFromKeyword;
 import static com.example.movies.ui.activity.main.MainActivity.getTypeByPositionTab;
 import static com.example.movies.ui.activity.main.MainActivity.globalContextLanguage;
 import static com.example.movies.ui.activity.main.MainActivity.globalSetting;
 import static com.example.movies.ui.activity.main.MainActivity.keywordLiveData;
 import static com.example.movies.ui.activity.main.MainActivity.parentAdapterMovieObservableField;
+import static com.example.movies.ui.activity.main.MainActivity.positionTab;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -40,6 +42,7 @@ import android.widget.Toast;
 import com.example.movies.adapter.search.ShimmerSearchAdapter;
 import com.example.movies.data.firebase.FirebaseObjectCommentManager;
 import com.example.movies.data.model.comment.Comment;
+import com.example.movies.data.model.users.UserProfile;
 import com.example.movies.helper.TranslateUtils;
 import com.example.movies.listener.videos.IOnActionShare;
 import com.example.movies.ui.activity.main.MainActivity;
@@ -112,6 +115,7 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
     public static MutableLiveData<Comment> mutableLiveDataAddComment;
     public static MutableLiveData<Comment> mutableLiveDataUpdateComment;
     public static MutableLiveData<Comment> mutableLiveDataDeleteComment;
+    public static MutableLiveData<UserProfile> mutableLiveDataUserChanged;
     public static MutableLiveData<Boolean> mutableLiveDataBottomSheetDismiss = new MutableLiveData<>();
     //
     public static FirebaseObjectCommentManager firebaseObjectCommentManager;
@@ -167,6 +171,7 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
         mutableLiveDataAddComment = new MutableLiveData<>();
         mutableLiveDataUpdateComment = new MutableLiveData<>();
         mutableLiveDataDeleteComment = new MutableLiveData<>();
+        mutableLiveDataUserChanged = new MutableLiveData<>();
 
         firebaseObjectCommentManager = new FirebaseObjectCommentManager();
 
@@ -271,10 +276,23 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
         mutableLiveDataDeleteComment.observe(this, new Observer<Comment>() {
             @Override
             public void onChanged(Comment comment) {
+                Log.i("AAA", "POST DELETE : " + comment.getTextComment());
                 Objects.requireNonNull(videosAdapterObservableField.get()).deleteCommentInTrailer(comment);
             }
         });
 
+
+        mutableLiveDataUserChanged.observe(this, new Observer<UserProfile>() {
+            @Override
+            public void onChanged(UserProfile userProfile) {
+                if (MainActivity.userProfile != null) {
+                    if (Objects.equals(MainActivity.userProfile.getUid(), userProfile.getUid())) {
+                        MainActivity.userProfile.setPathImage(userProfile.getPathImage());
+                    }
+                }
+                Objects.requireNonNull(videosAdapterObservableField.get()).updateImageProfileCommentInTrailer(userProfile);
+            }
+        });
 
         mutableLiveDataBottomSheetDismiss.observe(this, new Observer<Boolean>() {
             @Override
@@ -369,7 +387,16 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
         String overView = item.getOverview();
         String typeMovieOrTV = getTypeByPositionTab();
 
+        if (positionTab != 0 && positionTab != 1) {
+            if (positionTab == 2) {
+                typeMovieOrTV = Utils.TYPE_TV_SHOW;
+            } else {
+                typeMovieOrTV = chipTextFromKeyword.get();
+            }
+        }
+
         if (item.getTrailers().getTrailersList().size() == 0) {
+            String finalTypeMovieOrTV = typeMovieOrTV;
             APIGetData.apiGetData.getDetailsMovieInformation(typeMovieOrTV, item.getId()).enqueue(new Callback<MovieObject.Movie>() {
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
@@ -378,7 +405,7 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
                         item = response.body();
                         Objects.requireNonNull(item).setOverview(overView);
                         Objects.requireNonNull(item).setId(id);
-                        item.setTypeMovieOrTVShow(typeMovieOrTV);
+                        item.setTypeMovieOrTVShow(finalTypeMovieOrTV);
                         movieObservableField.set(item);
                         if (globalSetting.getLanguage().equals("vi")) {
                             TranslateUtils.setMovie(item);
@@ -403,16 +430,7 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
         }
         //ELSE DO THIS IF TRAILERS IS NOT NULL
         else {
-//            castAdapter.setCasts(Objects.requireNonNull(item).getStaff().getCasts());
-//            crewAdapter.setCrews(Objects.requireNonNull(item).getStaff().getCrews());
-//            videosAdapter.setTrailers(item.getTrailers().getTrailersList());
-//            recommendationAdapter.setMoviesList(item.getRecommendations().getMoviesList());
-//            similarAdapter.setMoviesList(item.getSimilar().getMoviesList());
-//            castDetailsAdapter.setCasts(Objects.requireNonNull(item).getStaff().getCasts());
-//            crewDetailsAdapter.setCrews(item.getStaff().getCrews());
-//
             isReloadFinish.postValue(true);
-
         }
     }
 
@@ -755,7 +773,7 @@ public class DetailsMovieActivity extends AppCompatActivity implements ITrailerI
 
     @Override
     public void itemClicked(MovieObject.Movie item) {
-        Log.i("AAA","ITEM DETAIL ACTIVITY : "+item.getName());
+        Log.i("AAA", "ITEM DETAIL ACTIVITY : " + item.getName());
         this.item = item;
         movieObservableField.set(item);
         startShimmer();

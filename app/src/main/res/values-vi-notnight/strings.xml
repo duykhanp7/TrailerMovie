@@ -172,5 +172,23 @@
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="no_overview">Chưa có tổng quan</string>
-    <string name="no_results_matches">No results matches</string>
+    <string name="no_results_matches">Không có kết quả trùng khớp</string>
+    <string name="next_version">Sẽ được phát hành trong phiên bản tiếp theo</string>
+    <string name="edit_comment">Chỉnh sửa bình luận</string>
+    <string name="my_profile">Thông tin cá nhân</string>
+    <string name="email_has_been_taken">Email này đã được sử dụng</string>
+    <string name="create_acc_success">Tạo tài khoản thành công</string>
+    <string name="send_issues">Gửi lỗi</string>
+    <string name="show_detail_issues">Vui lòng giải thích chi tiết vẫn đề bạn gặp phải</string>
+    <string name="issues">Vấn đề</string>
+    <string name="send_dev_issues">Gửi lỗi đến nhà phát hành</string>
+    <string name="code_">Code</string>
+    <string name="your_email_link_with_account">Tài khoản email liên kết</string>
+    <string name="send_code">Nhận mã</string>
+    <string name="submit_code">Chấp nhận</string>
+    <string name="code_sent_to_email">Code has been sent to your email</string>
+    <string name="enter_email_link_account">Please enter the email link with your account</string>
+    <string name="waiting_check_email">Please waiting check your email</string>
+    <string name="email_not_reference_to_any_acc">This email does not refer to any account</string>
+    <string name="enter_code_sent">Please enter the code sent to your email</string>
 </resources>

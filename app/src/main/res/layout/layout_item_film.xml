@@ -72,7 +72,7 @@
                 <RelativeLayout
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_130sdp"
-                    android:background="#D1D1D1">
+                    android:background="@color/brown_light">
 
                     <ImageView
                         android:layout_width="@dimen/_90sdp"

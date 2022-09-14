@@ -80,19 +80,20 @@
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_main2.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_movie_details.xml" value="0.12" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_splash_screen.xml" value="0.17346014492753623" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_user_profile.xml" value="0.1" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_user_profile.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/activity_watch_trailer.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_birth_date.xml" value="0.22" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_first_last_name.xml" value="0.25" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_language.xml" value="0.25" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_language.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_password.xml" value="0.18" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_password_auth.xml" value="0.18" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_change_theme.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_choose_image_options.xml" value="0.25" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_comment.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/bottom_sheet_information_personal.xml" value="0.16" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_cast_details_layout.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_cast_layout.xml" value="0.17346014492753623" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_comment.xml" value="0.2" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_comment.xml" value="0.22" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_crew_details_layout.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_crew_layout.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_recycler_view.xml" value="0.2" />
@@ -100,8 +101,9 @@
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_spinner_selected.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/item_youtube_view.xml" value="0.14" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_bottom_sheet_expand_show_films_by_type.xml" value="0.16" />
-        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_confirm_log_out.xml" value="0.25" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_confirm_log_out.xml" value="0.2" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_dialog_confirm_change_language.xml" value="0.13217213114754098" />
+        <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_dialog_edit_comment.xml" value="0.11577868852459017" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_exo_player.xml" value="0.17346014492753623" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_favorite.xml" value="0.14" />
         <entry key="..\:/AllProject/Android Studio/Watching_Trailer_Movies-master/app/src/main/res/layout/layout_item_film.xml" value="0.17346014492753623" />

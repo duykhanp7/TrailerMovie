@@ -4,18 +4,17 @@
 
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
         android:elevation="0dp"
         android:gravity="center|center_horizontal|center_vertical"
         android:orientation="vertical"
         app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="@dimen/_7sdp"
         app:cardElevation="0dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/background_alert_confirm_log_out"
@@ -28,10 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:id="@+id/textConfirmLogout"
                 android:text="@string/do_you_sure_to_log_out"
                 android:textColor="#FF7E00"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_15sdp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

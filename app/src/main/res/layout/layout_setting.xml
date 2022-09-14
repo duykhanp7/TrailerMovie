@@ -156,6 +156,32 @@
                         android:textSize="@dimen/_15sdp" />
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/buttonSendDevIssues"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/background_item_settings_clicked"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_20sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/issues" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/_15sdp"
+                        android:text="@string/send_issues"
+                        android:textSize="@dimen/_15sdp" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/buttonLogout"
                     android:layout_width="match_parent"

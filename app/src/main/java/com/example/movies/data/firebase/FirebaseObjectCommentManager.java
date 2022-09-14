@@ -88,6 +88,24 @@ public class FirebaseObjectCommentManager {
 
 
     /**
+     * Update comment ở firebase
+     */
+    public void updateComment(MovieObject.Movie movie, TrailerObject.Trailer trailer, Comment newComment) {
+        DatabaseReference reference = databaseReference.child(movie.getId()).child(trailer.getId()).child(newComment.getId());
+        reference.setValue(newComment).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+    /**
      * Get comment của trailier
      */
     public List<Comment> getAllComment(MovieObject.Movie movie, TrailerObject.Trailer trailer) {
@@ -117,6 +135,7 @@ public class FirebaseObjectCommentManager {
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 Map<String, String> mapValues = (Map<String, String>) snapshot.getValue();
                 Comment comment = commentFromMap(mapValues);
+                Log.i("AAA", "ITEM DELETE : " + comment.getTextComment());
                 mutableLiveDataDeleteComment.postValue(comment);
             }
 
@@ -130,6 +149,7 @@ public class FirebaseObjectCommentManager {
 
             }
         });
+
         return comments;
     }
 

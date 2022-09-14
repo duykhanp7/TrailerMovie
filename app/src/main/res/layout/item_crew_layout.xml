@@ -18,7 +18,8 @@
         android:background="@color/white"
         android:minWidth="0dp"
         bind:cardCornerRadius="@dimen/_4sdp"
-        bind:cardElevation="0dp">
+        bind:cardElevation="0dp"
+        android:layout_marginTop="@dimen/_7sdp">
 
         <RelativeLayout
             android:layout_width="@dimen/_90sdp"

@@ -6,6 +6,7 @@ import androidx.databinding.Bindable;
 import com.example.movies.BR;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class UserProfile extends BaseObservable implements Serializable {
 
@@ -106,5 +107,32 @@ public class UserProfile extends BaseObservable implements Serializable {
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
         this.notifyPropertyChanged(BR.birthdate);
+    }
+
+    public static UserProfile fromMap(Map<String,String> map){
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUid(map.get("uid"));
+        userProfile.setFirstName(map.get("firstName"));
+        userProfile.setLastName(map.get("lastName"));
+        userProfile.setEmail(map.get("email"));
+        userProfile.setPassword(map.get("password"));
+        userProfile.setPhoneNumber(map.get("phoneNumber"));
+        userProfile.setPathImage(map.get("pathImage"));
+        userProfile.setBirthdate(map.get("birthdate"));
+        return userProfile;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "uid='" + uid + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", pathImage='" + pathImage + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                '}';
     }
 }

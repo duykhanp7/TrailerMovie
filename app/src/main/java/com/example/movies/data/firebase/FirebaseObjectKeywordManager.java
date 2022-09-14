@@ -69,28 +69,30 @@ public class FirebaseObjectKeywordManager {
 
 
     public List<Keyword> getAllKeywordAlongUserID() {
-        String uid = firebaseUser.getUid();
         List<Keyword> keywordList = new ArrayList<>();
-        DatabaseReference reference = databaseReference.child(uid);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!isFinishLoadKeyword) {
-                    for (DataSnapshot a : snapshot.getChildren()) {
-                        Map<String, String> mapValue = (Map<String, String>) a.getValue();
-                        if (mapValue != null) {
-                            keywordList.add(Keyword.fromMap(mapValue));
+        if(firebaseUser != null){
+            String uid = firebaseUser.getUid();
+            DatabaseReference reference = databaseReference.child(uid);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!isFinishLoadKeyword) {
+                        for (DataSnapshot a : snapshot.getChildren()) {
+                            Map<String, String> mapValue = (Map<String, String>) a.getValue();
+                            if (mapValue != null) {
+                                keywordList.add(Keyword.fromMap(mapValue));
+                            }
                         }
+                        isFinishLoadKeyword = true;
                     }
-                    isFinishLoadKeyword = true;
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
         return keywordList;
     }
 

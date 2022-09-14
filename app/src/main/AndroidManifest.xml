@@ -28,7 +28,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="s">
         <activity
-            android:name=".ui.activity.details.UserProfileActivity"
+            android:name=".ui.activity.profile.UserProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.loginorsignup.LoginOrSignUpActivity"

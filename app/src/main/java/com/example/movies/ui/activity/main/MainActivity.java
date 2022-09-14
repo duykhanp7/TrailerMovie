@@ -5,9 +5,9 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableField;
@@ -27,8 +27,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -50,7 +51,7 @@ import com.example.movies.listener.language.IOnLanguageChange;
 import com.example.movies.listener.theme.IOnThemeChange;
 import com.example.movies.ui.activity.details.DetailsCharacterActivity;
 import com.example.movies.ui.activity.details.DetailsMovieActivity;
-import com.example.movies.ui.activity.details.UserProfileActivity;
+import com.example.movies.ui.activity.profile.UserProfileActivity;
 import com.example.movies.ui.activity.loginorsignup.LoginOrSignUpActivity;
 import com.example.movies.adapter.cast.CastAdapter;
 import com.example.movies.adapter.crew.CrewAdapter;
@@ -61,7 +62,7 @@ import com.example.movies.adapter.search.SearchMovieAdapter;
 import com.example.movies.adapter.spinner.SpinnerAdapter;
 import com.example.movies.data.api.APIGetData;
 import com.example.movies.ui.bottomsheet.BottomSheetChangeLanguage;
-import com.example.movies.ui.bottomsheet.BottomSheetChangePassword;
+import com.example.movies.ui.bottomsheet.BottomSheetChangePasswordWithoutAuthEmail;
 import com.example.movies.ui.bottomsheet.BottomSheetChangeTheme;
 import com.example.movies.data.shared.SharedPreferencesHelper;
 import com.example.movies.databinding.ActivityMainBinding;
@@ -166,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
     private boolean isFirstInitializedUserProfile = false;
     public static UserProfile userProfile;
     //ALERT DIALOG LOG OUT
-    private AlertDialog alertDialogConfirmLogOut;
+    private Dialog dialogLogOut;
+    private Dialog dialogChangeLanguages;
 
     public static ObservableField<Integer> observableFieldPositionFavoritesType = new ObservableField<>(0);
     public static ObservableField<Integer> observableFieldPositionOtherType = new ObservableField<>(0);
@@ -257,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         //ADD SNAP HELPER TO RECYCLER VIEW
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(activityMainBinding.recyclerViewListMovies);
+        dialogLogOut = new Dialog(this);
+        dialogChangeLanguages = new Dialog(this);
 
         activityMainBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -384,6 +388,13 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         bottomSheetChangeLanguage = new BottomSheetChangeLanguage(globalContextLanguage, this);
         bottomSheetChangeTheme = new BottomSheetChangeTheme(globalContextLanguage, this);
 
+        activityMainBinding.layoutIncludeSettings.buttonSendDevIssues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendIssuesToDev();
+            }
+        });
+
         //ON BUTTON LOG OUT CLICK
         activityMainBinding.layoutIncludeSettings.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -402,9 +413,9 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
                 } else if (provider.equals(Utils.FACEBOOK_PROVIDER)) {
                     Toasty.warning(getApplicationContext(), globalContextLanguage.getResources().getString(R.string.acc_auth_by_fb_not_change_pass), Toast.LENGTH_SHORT, true).show();
                 } else if (provider.equals(Utils.PASSWORD_PROVIDER)) {
-                    BottomSheetChangePassword bottomSheetChangePassword = new BottomSheetChangePassword(globalContextLanguage);
-                    bottomSheetChangePassword.show(getSupportFragmentManager(), "AAA");
-                    bottomSheetChangePassword.setStyle(DialogFragment.STYLE_NORMAL, R.style.changeBackgroundOfBottomSheetChangePassword);
+                    BottomSheetChangePasswordWithoutAuthEmail bottomSheetChangePasswordWithoutAuthEmail = new BottomSheetChangePasswordWithoutAuthEmail(globalContextLanguage);
+                    bottomSheetChangePasswordWithoutAuthEmail.show(getSupportFragmentManager(), "AAA");
+                    bottomSheetChangePasswordWithoutAuthEmail.setStyle(DialogFragment.STYLE_NORMAL, R.style.changeBackgroundOfBottomSheetChangePassword);
                 }
 
             }
@@ -413,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         activityMainBinding.layoutIncludeSettings.buttonSwitchAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toasty.info(getApplicationContext(), globalContextLanguage.getResources().getString(R.string.next_version), Toasty.LENGTH_SHORT, true).show();
             }
         });
 
@@ -470,7 +481,6 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         }
     }
 
-
     public void initRecyclerViewShimmer() {
         List<MovieObject.Movie> list = new ArrayList<>();
         list.add(new MovieObject.Movie());
@@ -492,7 +502,6 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         activityMainBinding.recyclerViewSearchMovieShimmer.setAdapter(adapter);
     }
 
-
     public void showLayoutSearchEmpty(int visibility) {
         Objects.requireNonNull(activityMainBinding.layoutNotResultReturn).setVisibility(visibility);
     }
@@ -504,14 +513,25 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
     public void activeLayoutSearch(Keyword keyword) {
         onButtonSearchClickedMain();
         activityMainBinding.searchView.clearFocus();
+        activityMainBinding.searchView.setQuery(keyword.getKeyword(), true);
         closeKeyboard();
         hideAllViewsAndJustShowRecyclerViewSearch(true);
-        Log.i("AAA","TYPE BEFORE SEARCH : "+keyword.getType());
-        onSearch(keyword.getKeyword(),keyword.getType());
+        Log.i("AAA", "TYPE BEFORE SEARCH : " + keyword.getType());
+        onSearch(keyword.getKeyword(), keyword.getType());
+    }
+
+    public void sendIssuesToDev(){
+        Intent intentSendIssuesToDev = new Intent(Intent.ACTION_SEND);
+        intentSendIssuesToDev.setPackage("com.google.android.gm");
+        intentSendIssuesToDev.putExtra(Intent.EXTRA_EMAIL, new String[]{Utils.dev_email});
+        intentSendIssuesToDev.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.issues));
+        intentSendIssuesToDev.putExtra(Intent.EXTRA_TEXT, getString(R.string.show_detail_issues));
+        intentSendIssuesToDev.setType("message/rfc822");
+        startActivity(intentSendIssuesToDev);
     }
 
     public void onSearch(String query, String typeSearch) {
-        Log.i("AAA","ON MAIN SEARCH : "+typeSearch);
+        Log.i("AAA", "ON MAIN SEARCH : " + typeSearch);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -555,7 +575,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
 
 
     public void startDetailActivity(MovieObject.Movie item) {
-        Log.i("AAA","ITEM DETAIl : "+item.getName());
+        Log.i("AAA", "ITEM DETAIl : " + item.getName());
         Intent intent = new Intent(MainActivity.this, DetailsMovieActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("item", item);
@@ -620,27 +640,33 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         startActivityLogin();
     }
 
-
     public void showAlertDialogConfirmLogOut() {
 
-        LayoutConfirmLogOutBinding binding = LayoutConfirmLogOutBinding.inflate(getLayoutInflater());
+        LayoutConfirmLogOutBinding binding = LayoutConfirmLogOutBinding.inflate(LayoutInflater.from(getApplicationContext()),null,false);
+        binding.textConfirmLogout.setText(globalContextLanguage.getResources().getString(R.string.do_you_sure_to_log_out));
+        binding.buttonCancelLogOut.setText(globalContextLanguage.getResources().getString(R.string.cancel));
+        binding.buttonSureLogout.setText(globalContextLanguage.getResources().getString(R.string.sure));
+
+        dialogLogOut.setContentView(binding.getRoot());
+
         binding.buttonSureLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logOut();
-                alertDialogConfirmLogOut.dismiss();
+                dialogLogOut.dismiss();
             }
         });
         binding.buttonCancelLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialogConfirmLogOut.dismiss();
+                dialogLogOut.dismiss();
             }
         });
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(binding.getRoot());
-        alertDialogConfirmLogOut = builder.create();
-        alertDialogConfirmLogOut.show();
+
+        dialogLogOut.show();
+
+        dialogLogOut.getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
+        dialogLogOut.getWindow().setLayout(dpToPx(370F,getApplicationContext()),dpToPx(200F,getApplicationContext()));
     }
 
     @Override
@@ -1278,6 +1304,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
     }
 
     public void getUserProfileCurrent() {
+        Log.i("AAA", "REGET USER PROFILE");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         if (firebaseUser != null) {
             reference.child(Utils.FIREBASE_USERS_ACCOUNT_FOLDER).child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -1287,6 +1314,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
                         if (!isFirstLoadUserProfile) {
                             userProfile = snapshot.getValue(UserProfile.class);
                             isFirstLoadUserProfile = true;
+                            Log.i("AAA", "REGET USER PROFILE IDD : " + userProfile.getUid());
                         }
                     }
                 }
@@ -1365,17 +1393,16 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
     public void showDialogConfirm() {
 
         LayoutDialogConfirmChangeLanguageBinding binding = LayoutDialogConfirmChangeLanguageBinding.inflate(getLayoutInflater());
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.setContentView(binding.getRoot());
+        dialogChangeLanguages.setContentView(binding.getRoot());
 
-        dialog.show();
+        dialogChangeLanguages.show();
+
+        dialogChangeLanguages.getWindow().getDecorView().setBackgroundColor(getApplicationContext().getColor(android.R.color.transparent));
 
         binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dialogChangeLanguages.dismiss();
             }
         });
 
@@ -1383,7 +1410,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
             @Override
             public void onClick(View view) {
                 restartActivity();
-                dialog.dismiss();
+                dialogChangeLanguages.dismiss();
             }
         });
 
@@ -1425,7 +1452,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
 
     @Override
     public void onChipClick(Keyword keyword) {
-        Log.i("AAA","KEY WORD TYPE : "+keyword.getType());
+        Log.i("AAA", "KEY WORD TYPE : " + keyword.getType());
         chipTextFromKeyword.set(keyword.getType());
         activeLayoutSearch(keyword);
     }
@@ -1434,8 +1461,12 @@ public class MainActivity extends AppCompatActivity implements IMovieItemClickLi
         return positionTab == 0 ? Utils.TYPE_MOVIE : Utils.TYPE_TV_SHOW;
     }
 
-    public static void deleteKeyword(Keyword a){
+    public static void deleteKeyword(Keyword a) {
         firebaseObjectKeywordManager.deleteKeyword(a);
+    }
+
+    public int dpToPx(float dp, Context context) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
 }

@@ -45,21 +45,12 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingTop="@dimen/_10sdp">
-
-                <TextView
-                    android:id="@+id/itemSpinner"
-                    android:layout_width="wrap_content"
+                
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/latest"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp" />
+                    android:id="@+id/itemSpinner"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/itemSpinner"
-                    android:src="@drawable/ic_drop_down_black" />
 
             </RelativeLayout>
 

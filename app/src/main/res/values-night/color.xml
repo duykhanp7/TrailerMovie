@@ -16,6 +16,7 @@
     <color name="background_view_divider">#FFFFFFFF</color>
     <color name="background_search_view">@color/brown_light</color>
     <color name="background_ic_favorite">#FFFFFFFF</color>
+    <color name="tint_icon_back">#FFFFFF</color>
     <color name="background_item">#FFFFFFFF</color>
     <color name="ripple_button_sign_up">#C5C5C5</color>
     <color name="ripple_button_login_up">#C87801</color>

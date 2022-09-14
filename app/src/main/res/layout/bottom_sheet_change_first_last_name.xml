@@ -33,7 +33,8 @@
                 android:gravity="center"
                 android:text="@string/change_name"
                 android:textColor="#FF9800"
-                android:textSize="@dimen/_18sdp" />
+                android:textStyle="bold"
+                android:textSize="@dimen/_15sdp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputCurrentFirstNameLayout"

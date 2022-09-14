@@ -10,11 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -30,6 +33,7 @@ import com.example.movies.data.shared.SharedPreferencesHelper;
 import com.example.movies.databinding.LayoutOptionsLoginSignupBinding;
 import com.example.movies.data.firebase.FirebaseObjectUserManager;
 import com.example.movies.data.model.users.UserProfile;
+import com.example.movies.ui.bottomsheet.BottomSheetChangePasswordWithAuthEmail;
 import com.example.movies.utils.ThemeUtils;
 import com.example.movies.utils.Utils;
 import com.facebook.CallbackManager;
@@ -158,6 +162,12 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
             disableErrorLayoutLogIn();
         }
 
+        bindClick();
+
+    }
+
+
+    public void bindClick() {
         binding.layoutIncludeScreenLogIn.googleAuthenticate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,7 +204,24 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
                     if (!isAgreeTernAndPolicy) {
                         Toasty.info(getApplicationContext(), context.getResources().getString(R.string.please_see_read_tern_and_policy), Toast.LENGTH_SHORT, true).show();
                     } else {
-                        createUserWithEmailAndPassword(userProfileSignUp);
+
+                        Toasty.info(context, context.getResources().getString(R.string.waiting_check_email), Toasty.LENGTH_SHORT, true).show();
+
+                        String email = Objects.requireNonNull(binding.layoutIncludeScreenSignUp.textInputEmail.getText()).toString();
+                        FirebaseObjectUserManager.checkUserEmailIsExists(email);
+
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (FirebaseObjectUserManager.emailExists) {
+                                    Toasty.error(getApplicationContext(), context.getResources().getString(R.string.email_has_been_taken), Toast.LENGTH_SHORT, true).show();
+                                    FirebaseObjectUserManager.removeDatabaseReferenceCheckEmailExists();
+                                } else {
+                                    createUserWithEmailAndPassword(userProfileSignUp);
+                                }
+                            }
+                        }, 2000);
+
                     }
                 } else {
                     Toasty.error(getApplicationContext(), context.getResources().getString(R.string.create_acc_fail), Toast.LENGTH_SHORT, true).show();
@@ -372,6 +399,15 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
             }
         });
 
+        binding.layoutIncludeScreenLogIn.buttonForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetChangePasswordWithAuthEmail bottomSheetChangePasswordWithAuthEmail = new BottomSheetChangePasswordWithAuthEmail(context);
+                bottomSheetChangePasswordWithAuthEmail.show(getSupportFragmentManager(), "AAA");
+                bottomSheetChangePasswordWithAuthEmail.setStyle(DialogFragment.STYLE_NORMAL, R.style.changeBackgroundOfBottomSheetChangePassword);
+            }
+        });
+
     }
 
     public static void showLayoutSplashScreen(int visibility) {
@@ -459,18 +495,19 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(userProfile.getEmail(), getPasswordEncrypted(userProfile.getPassword())).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-            }
-        }).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+                Toasty.success(getApplicationContext(), context.getResources().getString(R.string.create_acc_success), Toast.LENGTH_SHORT, true).show();
                 Toasty.info(getApplicationContext(), context.getResources().getString(R.string.please_login_to_enjoy), Toast.LENGTH_SHORT, true).show();
                 userProfile.setPassword(getPasswordEncrypted(userProfile.getPassword()));
                 firebaseObjectUserManager.addUser(userProfile);
             }
+        }).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toasty.error(getApplicationContext(), context.getResources().getString(R.string.create_acc_fail), Toast.LENGTH_SHORT, true).show();
+                Toasty.error(getApplicationContext(), context.getResources().getString(R.string.email_has_been_taken), Toast.LENGTH_SHORT, true).show();
                 e.printStackTrace();
             }
         }).addOnCanceledListener(new OnCanceledListener() {

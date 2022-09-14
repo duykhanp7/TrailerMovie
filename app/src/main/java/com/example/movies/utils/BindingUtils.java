@@ -298,18 +298,24 @@ public class BindingUtils {
                 textView.setText(String.join(", ", strings));
             }
         } else if (movie.getTypeMovieOrTVShow().equals(Utils.TYPE_TV_SHOW)) {
-            List<String> text = new ArrayList<>();
-            if (movie.getFirst_air_date() != null) {
-                String[] dateArr = movie.getFirst_air_date().split("-");
-                String[] newDate = new String[]{dateArr[2], dateArr[1], dateArr[0]};
-                String text1 = TextUtils.join("-", newDate);
-                text.add(text1);
+            try {
+                List<String> text = new ArrayList<>();
+                if (movie.getFirst_air_date() != null) {
+                    String[] dateArr = movie.getFirst_air_date().split("-");
+                    String[] newDate = new String[]{dateArr[2], dateArr[1], dateArr[0]};
+                    String text1 = TextUtils.join("-", newDate);
+                    text.add(text1);
+                }
+                if (movie.getOriginal_language() != null) {
+                    text.add(movieResources.mapLanguages.get(movie.getOriginal_language()));
+                }
+                String text1 = TextUtils.join(", ", text);
+                textView.setText(text1);
             }
-            if (movie.getOriginal_language() != null) {
-                text.add(movieResources.mapLanguages.get(movie.getOriginal_language()));
+            catch (Exception e){
+                textView.setText(movie.getFirst_air_date());
+                e.printStackTrace();
             }
-            String text1 = TextUtils.join(", ", text);
-            textView.setText(text1);
         }
     }
 
@@ -581,14 +587,14 @@ public class BindingUtils {
     //BIND TEXT VIEW DISPLAY NAME
     @BindingAdapter({"firstName", "lastName"})
     public static void setDisplayName(TextView textView, String firstName, String lastName) {
-        textView.setText(String.format("%s %s %s", textView.getContext().getResources().getString(R.string.text_name), firstName, lastName));
+        textView.setText(String.format("%s %s %s"," : ",firstName, lastName));
     }
 
 
     //BIND TEXT VIEW DISPLAY NAME
     @BindingAdapter("birthdate")
     public static void setBirthdate(TextView textView, String birthDate) {
-        textView.setText(String.format("%s %s", textView.getContext().getResources().getString(R.string.text_birthdate), birthDate));
+        textView.setText(String.format("%s %s", " : ", birthDate));
     }
 
     //BIND IMAGE USER
@@ -597,7 +603,7 @@ public class BindingUtils {
         if (path != null && !path.isEmpty()) {
             Picasso.get().load(path).into(imageView);
         } else {
-            imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.user));
+            imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.null_person_male));
         }
     }
 
@@ -625,75 +631,77 @@ public class BindingUtils {
 
     public static String getTitleResources(Context context, String title) {
         String newTitle = "Non title";
-        switch (title) {
-            case Utils.NowPlaying:
-                return context.getResources().getString(R.string.now_playing);
-            case Utils.Popular:
-                return context.getResources().getString(R.string.popular);
-            case Utils.TopRated:
-                return context.getResources().getString(R.string.top_rated);
-            case Utils.UpComing:
-                return context.getResources().getString(R.string.up_coming);
-            case Utils.AiringToday:
-                return context.getResources().getString(R.string.airing_today);
-            case Utils.OnTheAir:
-                return context.getResources().getString(R.string.on_the_air);
-            case Utils.Action:
-                return context.getResources().getString(R.string.action);
-            case Utils.Adventure:
-                return context.getResources().getString(R.string.adventure);
-            case Utils.Animation:
-                return context.getResources().getString(R.string.animation);
-            case Utils.Comedy:
-                return context.getResources().getString(R.string.comedy);
-            case Utils.Crime:
-                return context.getResources().getString(R.string.crime);
-            case Utils.Documentary:
-                return context.getResources().getString(R.string.documentary);
-            case Utils.Drama:
-                return context.getResources().getString(R.string.drama);
-            case Utils.Family:
-                return context.getResources().getString(R.string.family);
-            case Utils.Fantasy:
-                return context.getResources().getString(R.string.fantasy);
-            case Utils.History:
-                return context.getResources().getString(R.string.history);
-            case Utils.Horror:
-                return context.getResources().getString(R.string.horror);
-            case Utils.Music:
-                return context.getResources().getString(R.string.music);
-            case Utils.Mystery:
-                return context.getResources().getString(R.string.mystery);
-            case Utils.Romance:
-                return context.getResources().getString(R.string.romance);
-            case Utils.ScienceFiction:
-                return context.getResources().getString(R.string.science_fiction);
-            case Utils.TVMovie:
-                return context.getResources().getString(R.string.tv_movie);
-            case Utils.Thriller:
-                return context.getResources().getString(R.string.thriller);
-            case Utils.War:
-                return context.getResources().getString(R.string.war);
-            case Utils.Western:
-                return context.getResources().getString(R.string.western);
-            case Utils.ActionAdventure:
-                return context.getResources().getString(R.string.action_adventure);
-            case Utils.Kids:
-                return context.getResources().getString(R.string.kids);
-            case Utils.News:
-                return context.getResources().getString(R.string.news);
-            case Utils.Reality:
-                return context.getResources().getString(R.string.reality);
-            case Utils.SciFiFantasy:
-                return context.getResources().getString(R.string.scifi_fanta);
-            case Utils.Soap:
-                return context.getResources().getString(R.string.soap);
-            case Utils.Talk:
-                return context.getResources().getString(R.string.talk);
-            case Utils.WarPolitics:
-                return context.getResources().getString(R.string.war_politics);
-            default:
-                break;
+        if(title != null && !title.isEmpty()){
+            switch (title) {
+                case Utils.NowPlaying:
+                    return context.getResources().getString(R.string.now_playing);
+                case Utils.Popular:
+                    return context.getResources().getString(R.string.popular);
+                case Utils.TopRated:
+                    return context.getResources().getString(R.string.top_rated);
+                case Utils.UpComing:
+                    return context.getResources().getString(R.string.up_coming);
+                case Utils.AiringToday:
+                    return context.getResources().getString(R.string.airing_today);
+                case Utils.OnTheAir:
+                    return context.getResources().getString(R.string.on_the_air);
+                case Utils.Action:
+                    return context.getResources().getString(R.string.action);
+                case Utils.Adventure:
+                    return context.getResources().getString(R.string.adventure);
+                case Utils.Animation:
+                    return context.getResources().getString(R.string.animation);
+                case Utils.Comedy:
+                    return context.getResources().getString(R.string.comedy);
+                case Utils.Crime:
+                    return context.getResources().getString(R.string.crime);
+                case Utils.Documentary:
+                    return context.getResources().getString(R.string.documentary);
+                case Utils.Drama:
+                    return context.getResources().getString(R.string.drama);
+                case Utils.Family:
+                    return context.getResources().getString(R.string.family);
+                case Utils.Fantasy:
+                    return context.getResources().getString(R.string.fantasy);
+                case Utils.History:
+                    return context.getResources().getString(R.string.history);
+                case Utils.Horror:
+                    return context.getResources().getString(R.string.horror);
+                case Utils.Music:
+                    return context.getResources().getString(R.string.music);
+                case Utils.Mystery:
+                    return context.getResources().getString(R.string.mystery);
+                case Utils.Romance:
+                    return context.getResources().getString(R.string.romance);
+                case Utils.ScienceFiction:
+                    return context.getResources().getString(R.string.science_fiction);
+                case Utils.TVMovie:
+                    return context.getResources().getString(R.string.tv_movie);
+                case Utils.Thriller:
+                    return context.getResources().getString(R.string.thriller);
+                case Utils.War:
+                    return context.getResources().getString(R.string.war);
+                case Utils.Western:
+                    return context.getResources().getString(R.string.western);
+                case Utils.ActionAdventure:
+                    return context.getResources().getString(R.string.action_adventure);
+                case Utils.Kids:
+                    return context.getResources().getString(R.string.kids);
+                case Utils.News:
+                    return context.getResources().getString(R.string.news);
+                case Utils.Reality:
+                    return context.getResources().getString(R.string.reality);
+                case Utils.SciFiFantasy:
+                    return context.getResources().getString(R.string.scifi_fanta);
+                case Utils.Soap:
+                    return context.getResources().getString(R.string.soap);
+                case Utils.Talk:
+                    return context.getResources().getString(R.string.talk);
+                case Utils.WarPolitics:
+                    return context.getResources().getString(R.string.war_politics);
+                default:
+                    break;
+            }
         }
         return newTitle;
     }

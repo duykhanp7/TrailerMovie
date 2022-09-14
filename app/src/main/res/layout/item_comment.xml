@@ -39,7 +39,7 @@
                     android:layout_centerInParent="true"
                     app:civ_border_color="@color/background_top_login"
                     app:civ_border_width="@dimen/_1sdp"
-                    tools:src="@drawable/meow" />
+                    android:src="@drawable/null_person_male" />
 
             </RelativeLayout>
 
@@ -108,6 +108,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="@dimen/_1sdp"
+                    android:id="@+id/layoutEditParent"
                     android:weightSum="2">
 
                     <RelativeLayout

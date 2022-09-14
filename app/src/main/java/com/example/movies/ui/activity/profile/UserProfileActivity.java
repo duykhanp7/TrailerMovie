@@ -1,4 +1,6 @@
-package com.example.movies.ui.activity.details;
+package com.example.movies.ui.activity.profile;
+
+import static com.example.movies.ui.activity.main.MainActivity.globalContextLanguage;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -18,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,7 +30,6 @@ import com.example.movies.ui.bottomsheet.BottomSheetBirthDatePicker;
 import com.example.movies.ui.bottomsheet.BottomSheetChangeFirstLastName;
 import com.example.movies.ui.bottomsheet.BottomSheetChooseImageOptions;
 import com.example.movies.databinding.ActivityUserProfileBinding;
-import com.example.movies.databinding.BottomSheetChangeBirthDateBinding;
 import com.example.movies.listener.changebirthdate.IOnChangeBirthDate;
 import com.example.movies.listener.changename.IOnChangeDisplayName;
 import com.example.movies.listener.chooseimageoption.IOnItemImageOptionClick;
@@ -178,6 +180,14 @@ public class UserProfileActivity extends AppCompatActivity implements IOnChangeD
                 bottomSheetBirthDatePicker.show(getSupportFragmentManager(), "AAA");
             }
         });
+
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
     }
 
 
@@ -195,16 +205,17 @@ public class UserProfileActivity extends AppCompatActivity implements IOnChangeD
                     temp.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+                            Log.i("AAA","PATH IMAGE :L "+uri.getPath());
                             userProfile.setPathImage(uri.toString());
                             reference.child(Utils.FIREBASE_USERS_ACCOUNT_FOLDER).child(user.getUid()).child("pathImage").setValue(uri.toString());
-                            Toasty.success(getApplicationContext(), R.string.change_image_success, Toast.LENGTH_SHORT, true).show();
+                            Toasty.success(getApplicationContext(), globalContextLanguage.getResources().getString( R.string.change_image_success), Toast.LENGTH_SHORT, true).show();
                         }
                     });
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toasty.error(getApplicationContext(), R.string.change_image_fail, Toast.LENGTH_SHORT, true).show();
+                    Toasty.error(getApplicationContext(), globalContextLanguage.getResources().getString(R.string.change_image_fail), Toast.LENGTH_SHORT, true).show();
                 }
             });
         } catch (FileNotFoundException e) {

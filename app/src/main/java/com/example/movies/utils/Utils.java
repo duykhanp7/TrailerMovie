@@ -121,6 +121,7 @@ public class Utils {
     public static final String FIREBASE_WATCH_RECENTLY_MOVIES_FOLDER = "WatchRecentlyMovie";
     public static final String FIREBASE_FAVORITE_CAST_AND_CREW_FOLDER = "FavoriteCastAndCrew";
     public static final String FIREBASE_USERS_ACCOUNT_FOLDER = "UsersAccount";
+    public static final String FIREBASE_USERS_EMAIL = "UsersEmail";
     public static final String FIREBASE_CAST_FOLDER = "CastFolder";
     public static final String FIREBASE_CREW_FOLDER = "CrewFolder";
     //TYPE LOGIN
@@ -150,4 +151,6 @@ public class Utils {
     public static final String SETTING_DATABASE_NAME = "setting.db";
     public static final String SETTING_TABLE_NAME = "setting_table";
     public static final String KEYWORD_TABLE_NAME = "keyword_table";
+    //Dev email
+    public static final String dev_email = "duykhangp7@gmail.com";
 }
