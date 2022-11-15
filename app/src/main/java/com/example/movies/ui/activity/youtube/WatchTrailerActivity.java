@@ -52,6 +52,8 @@ public class WatchTrailerActivity extends YouTubeBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mYouTubePlayer.release();
+        if(mYouTubePlayer != null){
+            mYouTubePlayer.release();
+        }
     }
 }

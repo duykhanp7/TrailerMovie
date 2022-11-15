@@ -153,4 +153,14 @@ public class Utils {
     public static final String KEYWORD_TABLE_NAME = "keyword_table";
     //Dev email
     public static final String dev_email = "duykhangp7@gmail.com";
+
+    //Ads
+    public static final String APP_OPEN = "ca-app-pub-3940256099942544/3419835294";
+    public static final String BANNER = "ca-app-pub-3940256099942544/6300978111";
+    public static final String INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
+    public static final String INTERSTITIAL_VIDEO = "";
+    public static final String REWARDED = "ca-app-pub-3940256099942544/5224354917";
+    public static final String REWARDED_INTERSTITIAL = "ca-app-pub-3940256099942544/5354046379";
+    public static final String NATIVE_ADVANCED = "";
+    public static final String NATIVE_ADVANCED_VIDEO = "";
 }

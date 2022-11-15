@@ -11,7 +11,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -20,6 +26,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -33,6 +40,7 @@ import com.example.movies.data.shared.SharedPreferencesHelper;
 import com.example.movies.databinding.LayoutOptionsLoginSignupBinding;
 import com.example.movies.data.firebase.FirebaseObjectUserManager;
 import com.example.movies.data.model.users.UserProfile;
+import com.example.movies.ui.ads.AdsManager;
 import com.example.movies.ui.bottomsheet.BottomSheetChangePasswordWithAuthEmail;
 import com.example.movies.utils.ThemeUtils;
 import com.example.movies.utils.Utils;
@@ -41,6 +49,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.exoplayer2.util.Log;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -65,7 +75,8 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class LoginOrSignUpActivity extends AppCompatActivity {
+public class LoginOrSignUpActivity extends AppCompatActivity implements Application.ActivityLifecycleCallbacks,
+        LifecycleObserver {
 
     public static LayoutOptionsLoginSignupBinding binding;
     private static boolean isMainView = true;
@@ -107,9 +118,14 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
         }
     });
 
+    private Activity currentActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        registerActivityLifecycleCallbacks(this);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
         //INITIALIZED FIREBASE AUTH
         firebaseAuth = FirebaseAuth.getInstance();
@@ -164,8 +180,36 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
 
         bindClick();
 
+        loadAds();
+
     }
 
+
+    public void loadAds(){
+        //AdRequest adRequest = new AdRequest.Builder().build();
+        //binding.adViews.loadAd(adRequest);
+        AdsManager.AppOpen rewarded = new AdsManager.AppOpen();
+        rewarded.loadAd(LoginOrSignUpActivity.this);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean adsAvailable = rewarded.isAdAvailable();
+                if(adsAvailable){
+                    Log.i("AAA","Ads is available");
+                    rewarded.showAdIfAvailable(LoginOrSignUpActivity.this, new AdsManager.AppOpen.OnShowAdCompleteListener() {
+                        @Override
+                        public void onShowAdComplete() {
+                            Log.i("AAA","Show Ads App Open Success");
+                        }
+                    });
+                }
+                else{
+                    Log.i("AAA","Ads is not available");
+                    rewarded.loadAd(LoginOrSignUpActivity.this);
+                }
+            }
+        },5000);
+    }
 
     public void bindClick() {
         binding.layoutIncludeScreenLogIn.googleAuthenticate.setOnClickListener(new View.OnClickListener() {
@@ -876,4 +920,57 @@ public class LoginOrSignUpActivity extends AppCompatActivity {
     }
 
 
+    /** LifecycleObserver method that shows the app open ad when the app moves to foreground. */
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    protected void onMoveToForeground() {
+        // Show the ad (if available) when the app moves to foreground.
+        showAdIfAvailable(currentActivity);
+    }
+
+    public void showAdIfAvailable(Activity activity){
+        new AdsManager.AppOpen().showAdIfAvailable(activity, new AdsManager.AppOpen.OnShowAdCompleteListener() {
+            @Override
+            public void onShowAdComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
+        // Updating the currentActivity only when an ad is not showing.
+        if (!new AdsManager.AppOpen().isShowingAd) {
+            currentActivity = activity;
+        }
+    }
+
+    @Override
+    public void onActivityResumed(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityPaused(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityStopped(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
+    }
+
+    @Override
+    public void onActivityDestroyed(@NonNull Activity activity) {
+
+    }
 }

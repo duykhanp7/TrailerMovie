@@ -1,5 +1,6 @@
 package com.example.movies.ui.activity.splash;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.AnimationUtils;
 
 
@@ -17,7 +19,11 @@ import com.example.movies.data.model.setting.Setting;
 import com.example.movies.data.room.DatabaseRepository;
 import com.example.movies.ui.activity.loginorsignup.LoginOrSignUpActivity;
 import com.example.movies.databinding.ActivitySplashScreenBinding;
+import com.example.movies.ui.ads.AdsManager;
 import com.example.movies.utils.ThemeUtils;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -40,6 +46,15 @@ public class SplashScreen extends AppCompatActivity {
         settings();
 
         getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+        //Initialize
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+                Log.i("AAA","Initialization Complete");
+            }
+        });
+
         binding.motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
             @Override
             public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
